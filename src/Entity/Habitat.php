@@ -18,10 +18,10 @@ class Habitat
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 250)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 250)]
     private ?string $habitatComment = null;
 
 
@@ -71,7 +71,7 @@ class Habitat
         return $this->habitatComment;
     }
 
-    public function setHabitatComment(string $habitatComment): static
+    public function setHabitatComment(?string $habitatComment): static
     {
         $this->habitatComment = $habitatComment;
 
