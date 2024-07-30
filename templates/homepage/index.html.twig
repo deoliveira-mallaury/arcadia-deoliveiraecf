@@ -15,10 +15,18 @@
 		}
 	</style>
 	<div class="container-fluid" id="smooth-wrapper">
-		{#        <section data-bgcolor="#032f35" class=" rounded-top mt-2" style="width: 90vw;" data-textcolor="black" #}
-		{#                 data-scroll #}
-		{#                 data-scroll-speed="3"> #}
-			<div class="card box mt-3 mx-auto card_box" id="smooth-content"> <img src="{{ asset('images/imageZoo.jpg') }}" class="card-img-top mx-auto" alt=" ..."/>
+		{% if is_mobile() %}
+			<p>Mobile</p>
+		{% endif %}
+		{% if is_tablet() %}
+			<p>is_tablet</p>
+		{% endif %}
+		{% if is_device('iPhone') %}
+		<p>iPhone</p>
+		{% endif %}
+	
+		<div class="card box mt-3 mx-auto card_box" id="smooth-content">
+			<img src="{{ asset('images/imageZoo.jpg') }}" class="card-img-top mx-auto" alt=" ..."/>
 			<div class="card-body" style="">
 				<h4 class="card-title text-center">
 					Arcadia Zoo
@@ -60,7 +68,6 @@
 		</div>
 	</div>
 
-	{#        <section data-bgcolor="#e3857a" data-textcolor="#f1dba7"> #}
 	<div id="habitats-bloc" class="row justify-content-evenly pt-4" data-speed="clamp(0.5)">
 		<div class="col-md-4 col-4 ">
 			<h5 class="text-center my-2 ">
