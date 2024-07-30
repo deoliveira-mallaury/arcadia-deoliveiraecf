@@ -14,17 +14,8 @@
 			}
 		}
 	</style>
-	<div class="container-fluid" id="smooth-wrapper">
-		{% if is_mobile() %}
-			<p>Mobile</p>
-		{% endif %}
-		{% if is_tablet() %}
-			<p>is_tablet</p>
-		{% endif %}
-		{% if is_device('iPhone') %}
-		<p>iPhone</p>
-		{% endif %}
-	
+	<div class="container-fluid homepage" id="smooth-wrapper">
+
 		<div class="card box mt-3 mx-auto card_box" id="smooth-content">
 			<img src="{{ asset('images/imageZoo.jpg') }}" class="card-img-top mx-auto" alt=" ..."/>
 			<div class="card-body" style="">

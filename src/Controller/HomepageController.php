@@ -12,15 +12,9 @@ class HomepageController extends AbstractController
     #[Route('/', name: 'app_homepage')]
     public function index(MobileDetectorInterface $mobileDetector): Response
     {
-        $isMobile = $mobileDetector->isMobile();
-        $isTablet = $mobileDetector->isTablet();
-        $isIphone = $mobileDetector->is('iPhone');
-        var_dump($isMobile);
+
         return $this->render('homepage/index.html.twig', [
-            'controller_name' => 'HomepageController',
-            'isMobile' => $isMobile,
-            'isTablet' => $isTablet,
-            'isIphone' => $isIphone,
+            'controller_name' => 'HomepageController'
         ]);
     }
     #[Route('/services', name: 'app_services')]
