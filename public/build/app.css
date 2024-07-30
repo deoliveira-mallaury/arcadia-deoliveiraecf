@@ -1,0 +1,31 @@
+/*!**************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[1].use[1]!./assets/styles/app.css ***!
+  \**************************************************************************************************************/
+.indie-flower-regular {
+    font-family: "Indie Flower", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+body{
+    background-color: #FCF2E1;
+    color: #356d6e;
+}
+
+.navbar-expand-lg{
+    border-radius: 0 0 20px 20px;
+    background-color: #FBB996;
+
+}
+.nav-link,
+.navbar-brand,
+.navbar-toggler{
+    color: #356d6e;
+    font-family: "Indie Flower", cursive;
+    font-weight: bold;
+    font-style:normal;
+    font-size: larger;
+}
+
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXBwLmNzcyIsIm1hcHBpbmdzIjoiOzs7QUFBQTtJQUNJLG9DQUFvQztJQUNwQyxnQkFBZ0I7SUFDaEIsa0JBQWtCO0VBQ3BCOztBQUVGO0lBQ0kseUJBQXlCO0lBQ3pCLGNBQWM7QUFDbEI7O0FBRUE7SUFDSSw0QkFBNEI7SUFDNUIseUJBQXlCOztBQUU3QjtBQUNBOzs7SUFHSSxjQUFjO0lBQ2Qsb0NBQW9DO0lBQ3BDLGlCQUFpQjtJQUNqQixpQkFBaUI7SUFDakIsaUJBQWlCO0FBQ3JCIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vYXNzZXRzL3N0eWxlcy9hcHAuY3NzIl0sInNvdXJjZXNDb250ZW50IjpbIi5pbmRpZS1mbG93ZXItcmVndWxhciB7XHJcbiAgICBmb250LWZhbWlseTogXCJJbmRpZSBGbG93ZXJcIiwgY3Vyc2l2ZTtcclxuICAgIGZvbnQtd2VpZ2h0OiA0MDA7XHJcbiAgICBmb250LXN0eWxlOiBub3JtYWw7XHJcbiAgfVxyXG5cclxuYm9keXtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICNGQ0YyRTE7XHJcbiAgICBjb2xvcjogIzM1NmQ2ZTtcclxufVxyXG5cclxuLm5hdmJhci1leHBhbmQtbGd7XHJcbiAgICBib3JkZXItcmFkaXVzOiAwIDAgMjBweCAyMHB4O1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI0ZCQjk5NjtcclxuXHJcbn1cclxuLm5hdi1saW5rLFxyXG4ubmF2YmFyLWJyYW5kLFxyXG4ubmF2YmFyLXRvZ2dsZXJ7XHJcbiAgICBjb2xvcjogIzM1NmQ2ZTtcclxuICAgIGZvbnQtZmFtaWx5OiBcIkluZGllIEZsb3dlclwiLCBjdXJzaXZlO1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICBmb250LXN0eWxlOm5vcm1hbDtcclxuICAgIGZvbnQtc2l6ZTogbGFyZ2VyO1xyXG59XHJcbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==*/
