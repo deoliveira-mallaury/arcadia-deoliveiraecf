@@ -9,10 +9,9 @@ body{
     color: #356d6e;
 }
 
-.navbar-expand-sm{
+.navbar-expand-lg{
     border-radius: 0 0 20px 20px;
     background-color: #FBB996;
-
 }
 .nav-link,
 .navbar-brand,
