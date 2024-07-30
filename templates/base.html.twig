@@ -28,28 +28,18 @@
 			<div class="collapse navbar-collapse row" id="navbarSupportedContent">
 
 				<ul class="nav nav-tabs nav-fill">
-					<li class="nav-item ">
-						<a class="nav-link {{ app.request.get('_route') == 'app_services' ? 'active' : '' }}" href="{{ path('app_services') }}">Services</a>
-					</li>
-					<li class="nav-item ">
-						<a class="nav-link {{ app.request.get('_route') == 'app_habitats' ? 'active' : '' }}" href="{{ path('app_habitats') }}">Habitats</a>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Active</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link {{ app.request.get('_route') == 'app_homepage' ? 'active' : '' }}" href="{{ path('app_homepage') }}">Accueil</a>
+						<a class="nav-link" href="#">Link</a>
 					</li>
-					<li class="nav-item ">
-						<a class="nav-link {{ app.request.get('_route') == 'app_contact' ? 'active' : '' }}" href="{{ path('app_contact') }}">Contact</a>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link</a>
 					</li>
-					{% if app.user %}
-						<li class="nav-item ">
-							<a class="nav-link {{ app.request.get('_route') == 'app_logout' ? 'active' : '' }}" href="{{ path('app_logout') }}">Déconnexion</a>
-						</li>
-
-					{% else %}
-						<li class="nav-item ">
-							<a class="nav-link {{ app.request.get('_route') == 'app_login' ? 'active' : '' }}" href="{{ path('app_login') }}">Connexion</a>
-						</li>
-					{% endif %}
+					<li class="nav-item">
+						<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+					</li>
 				</ul>
 			</div>
 		</div>
