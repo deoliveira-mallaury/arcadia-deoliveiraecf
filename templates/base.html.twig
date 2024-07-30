@@ -19,16 +19,23 @@
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
+		<style>
+			@media(max-width: 600px) {
+				.navbar-expand-sm {
+					font-size: 2em;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-sm pb-xs-5 p-md-0 col-lg-6 mx-lg-auto">
 			<div class="container-fluid ">
-				<a class="navbar-brand d-sm-none" href="{{ path('app_homepage') }}">Arcadia zoo</a>
+				<a class="navbar-brand d-sm-none text-center" href="{{ path('app_homepage') }}">Arcadia zoo</a>
 				<button class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse row" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-around">
+					<ul class="navbar-nav text-center me-auto mb-2 mb-lg-0 justify-content-around">
 						<li class="nav-item ">
 							<a class="nav-link {{ app.request.get('_route') == 'app_services' ? 'active' : '' }}" href="{{ path('app_services') }}">Services</a>
 						</li>
