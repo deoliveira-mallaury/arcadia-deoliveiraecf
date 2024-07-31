@@ -1,28 +1,29 @@
-body{
-    background-color: #FCF2E1;
-    font-family: "Indie Flower", cursive;
-    color: #356d6e;
-}
 /* .lato-regular {
     font-family: "Lato", sans-serif;
     font-weight: 400;
     font-style: normal;
   } */
-/* .navbar {
-    font-size: 2em;
+body {
+    background-color: #FCF2E1;
+    font-family: "Indie Flower", cursive;
+    color: #356d6e;
+}
+
+.navbar {
     border-radius: 0 0 20px 20px;
     background-color: #FBB996;
-} */
+}
+
 .nav-link,
 .navbar-brand,
-.navbar-toggler{
+.navbar-toggler {
     color: #356d6e;
     font-family: "Indie Flower", cursive;
     font-weight: bold;
-    font-style:normal;
-    /* font-size: larger; */
+    font-style: normal;
 }
-.active{
+
+.active {
     color: #FCF2E1;
 }
 

@@ -20,67 +20,43 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Arcadia</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+	<nav class="navbar fixed-top navbar-expand-lg p-md-0 col-lg-6 mx-lg-auto ">
+		<div class="container-fluid ">
+			<a class="navbar-brand d-lg-none mx-auto" href="{{ path('app_homepage') }}">Arcadia zoo</a>
+			<button class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse row" id="navbarSupportedContent">
 
-				<ul class="nav nav-tabs nav-fill">
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Active</a>
+			<div class="collapse navbar-collapse row" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2">
+					<li class="nav-item text-center">
+						<a class="nav-link {{ app.request.get('_route') == 'app_services' ? 'active' : '' }}" href="{{ path('app_services') }}">Services</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Link</a>
+					<li class="nav-item text-center">
+						<a class="nav-link {{ app.request.get('_route') == 'app_habitats' ? 'active' : '' }}" href="{{ path('app_habitats') }}">Habitats</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Link</a>
+					<li class="nav-item text-center">
+						<a class="nav-link {{ app.request.get('_route') == 'app_homepage' ? 'active' : '' }}" href="{{ path('app_homepage') }}">Accueil</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+					<li class="nav-item text-center">
+						<a class="nav-link {{ app.request.get('_route') == 'app_contact' ? 'active' : '' }}" href="{{ path('app_contact') }}">Contact</a>
 					</li>
+					{% if app.user %}
+						<li class="nav-item text-center">
+							<a class="nav-link {{ app.request.get('_route') == 'app_logout' ? 'active' : '' }}" href="{{ path('app_logout') }}">Déconnexion</a>
+						</li>
+
+					{% else %}
+						<li class="nav-item text-center">
+							<a class="nav-link {{ app.request.get('_route') == 'app_login' ? 'active' : '' }}" href="{{ path('app_login') }}">Connexion</a>
+						</li>
+					{% endif %}
+
 				</ul>
 			</div>
 		</div>
-
 	</nav>
-	{# <nav class="navbar fixed-top navbar-expand-lg p-md-0 col-lg-6 mx-lg-auto ">
-						<div class="container-fluid ">
-							<a class="navbar-brand d-lg-none align-self-center mx-auto" href="{{ path('app_homepage') }}">Arcadia zoo</a>
-							<button class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-								<span class="navbar-toggler-icon"></span>
-							</button>
-							<div class="collapse navbar-collapse row" id="navbarSupportedContent">
-								<ul class="navbar-nav text-center me-auto mb-2 mb-lg-0 justify-content-around">
-									<li class="nav-item ">
-										<a class="nav-link {{ app.request.get('_route') == 'app_services' ? 'active' : '' }}" href="{{ path('app_services') }}">Services</a>
-									</li>
-									<li class="nav-item ">
-										<a class="nav-link {{ app.request.get('_route') == 'app_habitats' ? 'active' : '' }}" href="{{ path('app_habitats') }}">Habitats</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link {{ app.request.get('_route') == 'app_homepage' ? 'active' : '' }}" href="{{ path('app_homepage') }}">Accueil</a>
-									</li>
-									<li class="nav-item ">
-										<a class="nav-link {{ app.request.get('_route') == 'app_contact' ? 'active' : '' }}" href="{{ path('app_contact') }}">Contact</a>
-									</li>
-									{% if app.user %}
-										<li class="nav-item ">
-											<a class="nav-link {{ app.request.get('_route') == 'app_logout' ? 'active' : '' }}" href="{{ path('app_logout') }}">Déconnexion</a>
-										</li>
-				
-									{% else %}
-										<li class="nav-item ">
-											<a class="nav-link {{ app.request.get('_route') == 'app_login' ? 'active' : '' }}" href="{{ path('app_login') }}">Connexion</a>
-										</li>
-									{% endif %}
-				
-								</ul>
-							</div>
-						</div>
-					</nav> #}
 	{% block body %}{% endblock %}<!-- jQuery first, then Popper.js, then Bootstrap JS --><script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
