@@ -21,14 +21,14 @@
 		{% endblock %}
 	</head>
 
-	<nav class="navbar fixed-top navbar-expand-lg p-md-0 col-lg-6 mx-lg-auto ">
+	<nav class="navbar fixed-top navbar-expand-md p-md-0 col-lg-6 mx-lg-auto ">
 		<div class="container-fluid ">
-			<a class="navbar-brand d-lg-none mx-auto" href="{{ path('app_homepage') }}">Arcadia zoo</a>
+			<a class="navbar-brand d-md-none mx-auto" href="{{ path('app_homepage') }}">Arcadia zoo</a>
 			<button class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<div class="collapse navbar-collapse row " id="navbarSupportedContent">
+			<div class="collapse navbar-collapse row" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 nav-fill">
 					<li class="nav-item text-center">
 						<a class="nav-link {{ app.request.get('_route') == 'app_services' ? 'active' : '' }}" href="{{ path('app_services') }}">Services</a>
