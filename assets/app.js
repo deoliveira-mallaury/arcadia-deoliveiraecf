@@ -13,7 +13,7 @@ Turbo.start();
 
 // import the function from greet.js (the .js extension is optional)
 // ./ (or ../) means to look for a local file
-import loginformValidator from './loginformValidator.js';
+import loginformValidator from './controllers/loginformValidator.js';
 
 
 

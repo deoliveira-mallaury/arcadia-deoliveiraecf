@@ -7,11 +7,11 @@
 	<div class="homepage">
 		<div class="container-fluid" id="smooth-wrapper">
 			<div class="card box mt-3 mx-auto card_box" id="smooth-content">
-				<div class="row justify-content-center">
-					<div class="col-lg-6">
-						<img src="{{ asset('images/imageZoo.jpg') }}" class="imgZoo w-100" alt="..."/>
+				<div class="row justify-content-center align-items-center">
+					<div class="col-md-6 ">
+						<img src="{{ asset('images/imageZoo.jpg') }}" class="m-2 img-fluid imgZoo w-100" alt="..."/>
 					</div>
-					<div class="card-body col-lg-4">
+					<div class="card-body col-md-4">
 						<h4 class="card-title text-center">Arcadia Zoo</h4>
 						<span class="card-text text-center">Visiter le parc animalier de vos rêves. Dédié à la protection animale.</span>
 						<hr class="my-1"/>
@@ -51,10 +51,7 @@
 			</div>
 		</div>
 
-		<div
-			class="container-fluid row  justify-content-evenly pt-4">
-
-			{# <div id="habitats-bloc" class="row justify-content-evenly " data-speed="clamp(0.5)"> #}
+		<div class="container-fluid row justify-content-evenly pt-4">
 			<div class="col-md-3 col-4">
 				<h5 class="text-center mt-2">Habitats disponibles</h5>
 				<div class="card m-1">
@@ -69,7 +66,6 @@
 					<img src="{{ asset('images/marais.jpg') }}" class="card-img-top d-none d-md-block" alt="...">
 					<p class="card-text text-center">Marais</p>
 				</div>
-
 			</div>
 			<div class="col-md-3 col-7">
 				<h5 class="text-center mt-2 ">Animaux</h5>
@@ -122,40 +118,58 @@
 
 		</div>
 	</div>
-	<div class="avis-container row ">
-		<h5 class="text-center my-3">Avis</h5>
-		<div class="card w-50 col-2 mb-1">
-			<div class="card-body">
-				<h5 class="card-title">Card title</h5>
-				<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+	<div class="container-fluid row justify-content-evenly">
+		<div class="avis-container row justify-content-evenly col-md-6 col-10">
+			<h5 class="text-center my-3">Avis</h5>
+			<div class="card col-5 mb-5 me-1">
+				<div class="card-body">
+
+					<i class="bi bi-star" id="toggleRange1"></i>
+					<i class="bi bi-star" id="toggleRange2"></i>
+					<i class="bi bi-star" id="toggleRange3"></i>
+					<i class="bi bi-star" id="toggleRange4"></i>
+					<i class="bi bi-star" id="toggleRange5"></i>
+					{# <i class="bi bi-star-fill"></i> #}
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+				</div>
+			</div>
+			<div class="card col-5 mb-5">
+				<div class="card-body">
+					<i class="bi bi-star" id="toggleRange1"></i>
+					<i class="bi bi-star" id="toggleRange2"></i>
+					<i class="bi bi-star" id="toggleRange3"></i>
+					<i class="bi bi-star" id="toggleRange4"></i>
+					<i class="bi bi-star" id="toggleRange5"></i>
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+				</div>
 			</div>
 		</div>
-		<div class="card w-50 col-2 mb-1">
-			<div class="card-body">
-				<h5 class="card-title">Card title</h5>
-				<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-			</div>
+		<div class="avis-form-container col-md-6 col-10">
+			<h5 class="text-center my-3">Partagez votre avis</h5>
+			<form class="">
+				<div class="m-2 text-center">
+					<label for="exampleInputPseudo" class="form-label">Pseudonyme</label>
+					<input type="text" class="form-control w-75 mx-auto" id="exampleInputPassword1">
+				</div>
+				<div class="m-2 text-center">
+
+					<i class="bi bi-star" id="toggleRange1"></i>
+					<i class="bi bi-star" id="toggleRange2"></i>
+					<i class="bi bi-star" id="toggleRange3"></i>
+					<i class="bi bi-star" id="toggleRange4"></i>
+					<i class="bi bi-star" id="toggleRange5"></i>
+				</div>
+
+				<div class="m-2 text-center">
+					<label class="text-center" for="floatingTextarea2">Comments</label>
+					<textarea class="form-control w-75 mx-auto" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+				</div>
+				<div class="d-grid gap-2 m-2 col-3 mx-auto">
+					<button type="submit" class="btn btn-primary text-center">Submit</button>
+				</div>
+			</form>
 		</div>
-	</div>
-	<div class="avis-form-container container ">
-		<h5 class="text-center my-3">Partagez votre avis</h5>
-		<form class="">
-			<div class="m-2 text-center">
-				<label for="exampleInputEmail1" class="form-label ">Email address</label>
-				<input type="email" class="form-control w-75 mx-auto" id="exampleInputEmail1" aria-describedby="emailHelp">
-				<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-			</div>
-			<div class="m-2 text-center">
-				<label for="exampleInputPseudo" class="form-label">Pseudonyme</label>
-				<input type="text" class="form-control w-75 mx-auto" id="exampleInputPassword1">
-			</div>
-			<div class="m-2 text-center">
-				<label class="text-center" for="floatingTextarea2">Comments</label>
-				<textarea class="form-control w-75 mx-auto" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-			</div>
-			<div class="d-grid gap-2 m-2 col-3 mx-auto">
-				<button type="submit" class="btn btn-primary text-center">Submit</button>
-			</div>
-		</form>
 	</div>
 </div>{% endblock %}
