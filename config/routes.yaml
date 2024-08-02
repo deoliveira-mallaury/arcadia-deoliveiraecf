@@ -18,3 +18,15 @@ contact:
 login:
     path: /login
     controller: HomeController:index
+
+administrator:
+    path: /administrator
+    controller: HomeController:index
+
+veterinarian:
+    path: /veterinarian
+    controller: HomeController:index
+
+employee:
+    path: /employee
+    controller: HomeController:index
