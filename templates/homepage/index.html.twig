@@ -4,67 +4,83 @@
 {% endblock %}
 
 {% block body %}
-	<style></style>
-	<div class="container-fluid " id="smooth-wrapper">
-		{#        <section data-bgcolor="#032f35" class=" rounded-top mt-2" style="width: 90vw;" data-textcolor="black" #}
-		{#                 data-scroll #}
-		{#                 data-scroll-speed="3"> #}<div class="card box mt-3" id="smooth-content"> <img src="{{ asset('images/imageZoo.jpg') }}" class="card-img-top mx-auto" alt=" ..."/>
-			<div class="card-body" style="">
-				<h4 class="card-title text-center">
-					Arcadia Zoo
-				</h4>
-				<span class="card-text text-center">Visiter le parc animalier de vos rêves. Dédié à la protection animale.</span>
-				<hr class="my-1"/>
-				<div class="container-fluid">
-					<p class="text-center mx-auto">Horaires :</p>
-					<div class="row">
-						<p class="col text-center">Lundi :</p>
-						<p class="col">8:00 - 18:00</p>
+	<div class="homepage">
+		<div class="container-fluid" id="smooth-wrapper">
+			<div class="card box mt-3 mx-auto card_box" id="smooth-content">
+				<div class="row justify-content-center">
+					<div class="col-lg-6">
+						<img src="{{ asset('images/imageZoo.jpg') }}" class="imgZoo w-100" alt="..."/>
 					</div>
-					<div class="row">
-						<p class="col text-center">Mardi :</p>
-						<p class="col">8:00 - 18:00</p>
-					</div>
-					<div class="row">
-						<p class="col text-center">Mercredi :</p>
-						<p class="col">8:00 - 18:00</p>
-					</div>
-					<div class="row">
-						<p class="col text-center">Jeudi :</p>
-						<p class="col">8:00 - 18:00</p>
-					</div>
-					<div class="row">
-						<p class="col text-center">Vendredi :</p>
-						<p class="col">8:00 - 18:00</p>
-					</div>
-					<div class="row">
-						<p class="col text-center">Samedi :</p>
-						<p class="col">8:00 - 18:00</p>
-					</div>
-					<div class="row">
-						<p class="col text-center">Dimanche :</p>
-						<p class="col">8:00 - 18:00</p>
+					<div class="card-body col-lg-4">
+						<h4 class="card-title text-center">Arcadia Zoo</h4>
+						<span class="card-text text-center">Visiter le parc animalier de vos rêves. Dédié à la protection animale.</span>
+						<hr class="my-1"/>
+						<div class="container-fluid ">
+							<p class="text-center mx-auto">Horaires :</p>
+							<div class="row mx-auto">
+								<p class="col text-end ">Lundi :</p>
+								<p class="col">8:00 - 18:00</p>
+							</div>
+							<div class="row mx-auto">
+								<p class="col text-end">Mardi :</p>
+								<p class="col">8:00 - 18:00</p>
+							</div>
+							<div class="row mx-auto">
+								<p class="col text-end">Mercredi :</p>
+								<p class="col">8:00 - 18:00</p>
+							</div>
+							<div class="row mx-auto">
+								<p class="col text-end">Jeudi :</p>
+								<p class="col">8:00 - 18:00</p>
+							</div>
+							<div class="row mx-auto">
+								<p class="col text-end">Vendredi :</p>
+								<p class="col">8:00 - 18:00</p>
+							</div>
+							<div class="row mx-auto">
+								<p class="col text-end">Samedi :</p>
+								<p class="col">8:00 - 18:00</p>
+							</div>
+							<div class="row mx-auto">
+								<p class="col text-end">Dimanche :</p>
+								<p class="col">8:00 - 18:00</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		{#        <section data-bgcolor="#e3857a" data-textcolor="#f1dba7"> #}
-		<div id="habitats-bloc" class="row justify-content-evenly pt-4" data-speed="clamp(0.5)">
-			<div class="col-md-4 col-4 ">
-				<h5 class="text-center my-2 ">
-					Habitats disponibles</h5>
-				<div>
-					<ul class="list-group habitats text-center">
-						<li class="list-group-item habitat">Savane</li>
-						<li class="list-group-item habitat">Jungle</li>
-						<li class="list-group-item habitat">Marais</li>
-					</ul>
+		<div
+			class="container-fluid row  justify-content-evenly pt-4">
+
+			{# <div id="habitats-bloc" class="row justify-content-evenly " data-speed="clamp(0.5)"> #}
+			<div class="col-md-3 col-4">
+				<h5 class="text-center mt-2">Habitats disponibles</h5>
+				<div class="card m-1">
+					<img src="{{ asset('images/savane.jpg') }}" class="card-img-top d-none d-md-block" alt="...">
+					<p class="card-text text-center">Savane</p>
 				</div>
+				<div class="card m-1">
+					<img src="{{ asset('images/jungle.png') }}" class="card-img-top d-none d-md-block" alt="...">
+					<p class="card-text text-center">Jungle</p>
+				</div>
+				<div class="card m-1">
+					<img src="{{ asset('images/marais.jpg') }}" class="card-img-top d-none d-md-block" alt="...">
+					<p class="card-text text-center">Marais</p>
+				</div>
+
 			</div>
-			<div class="col-md-7 col-7 ">
-				<h5 class="text-center my-2 ">Animaux</h5>
-				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+			<div class="col-md-3 col-7">
+				<h5 class="text-center mt-2 ">Animaux</h5>
+				<div class="d-none d-md-block">
+					<div class="card m-1">
+						<img src="{{ asset('images/simba.jpg') }}" class="card-img-top" alt="...">
+						<p class="card-text">Simba</p>
+					</div>
+				</div>
+
+				<div id="carouselExampleControls" class="carousel slide d-block d-md-none" data-bs-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
 							<img src="{{ asset('images/imageZoo.jpg') }}" class="d-block w-100" alt="...">
@@ -85,96 +101,61 @@
 						<span class="visually-hidden">Next</span>
 					</button>
 				</div>
+
 			</div>
-		</div>
-		<div class="services-container row ">
-			<h5 class="text-center my-3">Services</h5>
-			<div class="card w-50 col-2 mb-1">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			<div class="col-md-3 col-11 container-fluid row justify-content-evenly">
+				<h5 class="text-center mt-2">Services</h5>
+				<div class="card col-5 col-md-12 m-1">
+					<img src="{{ asset('images/restaurant.jpg') }}" class="card-img-top" alt="...">
+					<p class="card-text text-center">Restaurant</p>
 				</div>
-			</div>
-			<div class="card w-50 col-2 mb-1">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+				<div class="card col-5 col-md-12 m-1">
+					<img src="{{ asset('images/visiteGuidee.jpg') }}" class="card-img-top" alt="...">
+					<p class="card-text text-center">
+						Visite zoo en petit train</p>
 				</div>
-			</div>
-			<div class="card w-50 col-2 mb-1">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+				<div class="card col-6 col-md-12 m-1">
+					<img src="{{ asset('images/visiteTrain.jpg') }}" class="card-img-top" alt="...">
+					<p class="card-text text-center">Visite guidée</p>
 				</div>
 			</div>
-			<div class="card w-50 col-2 mb-1">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-				</div>
-			</div>
-		</div>
-		<div class="avis-container row ">
-			<h5 class="text-center my-3">Avis</h5>
-			<div class="card w-50 col-2 mb-1">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-				</div>
-			</div>
-			<div class="card w-50 col-2 mb-1">
-				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-				</div>
-			</div>
-		</div>
-		<div class="avis-form-container container ">
-			<h5 class="text-center my-3">Partagez votre avis</h5>
-			<form class="">
-				<div class="m-2 text-center">
-					<label for="exampleInputEmail1" class="form-label ">Email address</label>
-					<input type="email" class="form-control w-75 mx-auto" id="exampleInputEmail1" aria-describedby="emailHelp">
-					<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-				</div>
-				<div class="m-2 text-center">
-					<label for="exampleInputPseudo" class="form-label">Pseudonyme</label>
-					<input type="text" class="form-control w-75 mx-auto" id="exampleInputPassword1">
-				</div>
-				<div class="m-2 text-center">
-					<label class="text-center" for="floatingTextarea2">Comments</label>
-					<textarea class="form-control w-75 mx-auto" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-				</div>
-				<div class="d-grid gap-2 m-2 col-3 mx-auto">
-					<button type="submit" class="btn btn-primary text-center">Submit</button>
-				</div>
-			</form>
+
 		</div>
 	</div>
-	{#    exemple gsap #}
-{#    <div class="container"> #}
-	{#        <section data-bgcolor="#bcb8ad" data-textcolor="#032f35"> #}
-	{#            <h1 data-scroll data-scroll-speed="3">Change background colour with GSAP ScrollTrigger</h1> #}
-	{#            <img src="https://images.pexels.com/photos/3062948/pexels-photo-3062948.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" #}
-	{#                 alt=""> #}
-	{#        </section> #}
-	{#        <section data-bgcolor="#eacbd1" data-textcolor="#536fae"><img #}
-	{#                    src="https://images.pexels.com/photos/4467879/pexels-photo-4467879.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" #}
-	{#                    alt=""> #}
-	{#            <h2 data-scroll data-scroll-speed="1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2> #}
-	{#        </section> #}
-
-	{#        <section data-bgcolor="#536fae" data-textcolor="#eacbd1"><img #}
-	{#                    src="https://images.pexels.com/photos/5604966/pexels-photo-5604966.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" #}
-	{#                    alt=""> #}
-	{#            <h2 data-scroll data-scroll-speed="1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2> #}
-	{#        </section> #}
-	{#        <section data-bgcolor="#e3857a" data-textcolor="#f1dba7"><img #}
-	{#                    src="https://images.pexels.com/photos/4791474/pexels-photo-4791474.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" #}
-	{#                    alt=""> #}
-	{#            <h2 data-scroll data-scroll-speed="1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2> #}
-	{#        </section> #}
-	{#    </div> #}
-
-	{#    <div class="credit"><a href="https://thisisadvantage.com" target="_blank">Made by Advantage</div> #}
-{% endblock %}
+	<div class="avis-container row ">
+		<h5 class="text-center my-3">Avis</h5>
+		<div class="card w-50 col-2 mb-1">
+			<div class="card-body">
+				<h5 class="card-title">Card title</h5>
+				<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			</div>
+		</div>
+		<div class="card w-50 col-2 mb-1">
+			<div class="card-body">
+				<h5 class="card-title">Card title</h5>
+				<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			</div>
+		</div>
+	</div>
+	<div class="avis-form-container container ">
+		<h5 class="text-center my-3">Partagez votre avis</h5>
+		<form class="">
+			<div class="m-2 text-center">
+				<label for="exampleInputEmail1" class="form-label ">Email address</label>
+				<input type="email" class="form-control w-75 mx-auto" id="exampleInputEmail1" aria-describedby="emailHelp">
+				<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+			</div>
+			<div class="m-2 text-center">
+				<label for="exampleInputPseudo" class="form-label">Pseudonyme</label>
+				<input type="text" class="form-control w-75 mx-auto" id="exampleInputPassword1">
+			</div>
+			<div class="m-2 text-center">
+				<label class="text-center" for="floatingTextarea2">Comments</label>
+				<textarea class="form-control w-75 mx-auto" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+			</div>
+			<div class="d-grid gap-2 m-2 col-3 mx-auto">
+				<button type="submit" class="btn btn-primary text-center">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>{% endblock %}
