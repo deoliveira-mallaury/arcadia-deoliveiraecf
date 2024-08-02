@@ -1,4 +1,5 @@
 import './bootstrap.js';
+import './styles/app.scss';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -7,7 +8,7 @@ import './bootstrap.js';
  */
 // loads the jquery package from node_modules
 import $ from 'jquery';
-import { Turbo } from '@hotwired/turbo';
+import * as Turbo from '@hotwired/turbo';
 Turbo.start();
 
 // import the function from greet.js (the .js extension is optional)
