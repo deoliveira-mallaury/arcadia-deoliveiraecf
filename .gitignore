@@ -41,3 +41,4 @@ vendor/
 public/assets/
 assets/vendor/
 ###< symfony/asset-mapper ###
+/vendor
