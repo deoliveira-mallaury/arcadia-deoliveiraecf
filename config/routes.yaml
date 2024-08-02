@@ -8,22 +8,25 @@ homepage:
     controller: HomeController:index
 services:
     path: /services
-    controller: HomeController:index
+    controller: ServicesController:index
 habitats:
     path: /habitats
-    controller: HomeController:index
+    controller: HabitatsController:index
 contact:
     path: /contact
-    controller: HomeController:index
+    controller: ContactController:index
 login:
     path: /login
-    controller: HomeController:index
+    controller: LoginController:index
 dministrator:
     path: /administrator
-    controller: HomeController:index
+    controller: AdministratorController:index
 veterinarian:
     path: /veterinarian
-    controller: HomeController:index
+    controller: VeterinarianController:index
 employee:
     path: /employee
-    controller: HomeController:index
+    controller: EmployeeController:index
+user:
+    path: /user
+    controller: UserController:index
