@@ -1,0 +1,15 @@
+{# templates/administrator/_content.html.twig #}
+{# <div class="new_user m-4"> #}
+	{# {{ form_start(form) }}
+	{{ form_widget(form) }}
+	<button class="btn">Create</button>
+	{{ form_end(form) }} #}
+{# </div> #}
+<h2>Users</h2>
+<ul>
+	{% for user in users %}
+		<li>{{ user.name }}
+			{{ user.lastname }}
+			({{ user.email }})</li>
+	{% endfor %}
+</ul>
