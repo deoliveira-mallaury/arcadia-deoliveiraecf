@@ -7,26 +7,27 @@ homepage:
   path: /
   controller: HomeController:index
 services:
-  path: /services
-  controller: ServicesController:index
+    path: /services
+    controller: ServicesController:index
 habitats:
-  path: /habitats
-  controller: HabitatsController:index
+    path: /habitats
+    controller: HabitatsController:index
 contact:
-  path: /contact
-  controller: ContactController:index
+    path: /contact
+    controller: ContactController:index
 login:
-  path: /login
-  controller: LoginController:index
+    path: /login
+    controller: LoginController:index
 dministrator:
-  path: /administrator
-  controller: AdministratorController:index
+    path: /administrator
+    controller: AdministratorController:index
 veterinarian:
-  path: /veterinarian
-  controller: VeterinarianController:index
+    path: /veterinarian
+    controller: VeterinarianController:index
 employee:
-  path: /employee
-  controller: EmployeeController:index
+    path: /employee
+    controller: EmployeeController:index
 user:
-  path: /user
-  controller: UserController:index
+    path: /user
+    controller: UserController:index
+
