@@ -18,7 +18,7 @@ class HabitatsController extends AbstractController
         ]);
     }
     
-    #[Route('/new', name: 'app_habitats_new')]
+    #[Route('/habitats/new', name: 'app_habitats_new')]
     public function new(EntityManagerInterface $em)
     {
         $habitatsNames=['Savane', 'Jungle', 'Marais'];
