@@ -18,8 +18,20 @@ class Animal
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 250)]
+    private ?string $etat = null;
+
+    #[ORM\Column(length: 250)]
+    private ?string $foodType = null;
+
     #[ORM\Column(length: 50)]
-    private ?string $condition = null;
+    private ?string $FoodQty = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $height = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $Size = null;
 
     /**
      * @var Collection<int, VeterinaryRepport>
@@ -57,14 +69,62 @@ class Animal
         return $this;
     }
 
-    public function getCondition(): ?string
+    public function getEtat(): ?string
     {
-        return $this->condition;
+        return $this->etat;
     }
 
-    public function setCondition(string $condition): static
+    public function setEtat(string $etat): static
     {
-        $this->condition = $condition;
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getFoodType(): ?string
+    {
+        return $this->foodType;
+    }
+
+    public function setFoodType(string $foodType): static
+    {
+        $this->foodType = $foodType;
+
+        return $this;
+    }
+
+    public function getFoodQty(): ?string
+    {
+        return $this->foodQty;
+    }
+
+    public function setFoodQty(string $foodQty): static
+    {
+        $this->foodQty = $foodQty;
+
+        return $this;
+    }
+
+    public function getHeight(): ?string
+    {
+        return $this->height;
+    }
+
+    public function setHeight(string $height): static
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    public function getSize(): ?string
+    {
+        return $this->size;
+    }
+
+    public function setSize(string $size): static
+    {
+        $this->size = $size;
 
         return $this;
     }
