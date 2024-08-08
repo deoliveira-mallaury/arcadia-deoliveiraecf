@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,9 +24,10 @@ class AdministratorController extends AbstractController
     #[Route('/administrator', name: 'app_administrator')]
     public function index(Request $request, UserRepository $userRepository): Response
     {
+
         $frameId = $request->headers->get('Turbo-Frame');
         $users = $userRepository->findAll();
-
+        // var_dump($users);
         if ($frameId === 'new_user') {
             $subRequest = $this->requestStack->getCurrentRequest()->duplicate([], null, ['_controller' => 'App\Controller\UserController::new']);
             $response = $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);

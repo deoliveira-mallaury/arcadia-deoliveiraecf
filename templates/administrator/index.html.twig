@@ -4,31 +4,26 @@
 {% endblock %}
 
 {% block body %}
-	<div class="administrator">
-		<button id="toggle_user_param" classs="btn btn-link">
-			<i class="bi bi-person-circle"></i>
-		</button>
-
-		<ul class="nav nav-tabs">
-			<li class="nav-item">
-				<turbo-frame id="new_user">
-					<a href="{{ path('app_user_new') }}" turbo-frame="new_user" turbo-visit-control="reload" class="btn btn-link">
-						<img src="{{ asset('images/person-fill-add.svg') }}"/>
-					</a>
-				</turbo-frame>
-			</li>
-			<li class="nav-item">
+	<div class="administrator container-fluid row gap-3">
+		<div class="col-4 border border-dark">
+			<button id="toggle_user_param" class="btn btn-link">
+				Utilisateurs
+			</button>
+			<div id="user-pannel">
 				<turbo-frame id="user_show">
 					{{ include('administrator/_content.html.twig', { users: users }) }}
-                    <i class="bi bi-person-lines-fill"></i>
 				</turbo-frame>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">Link</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-			</li>
-		</ul>
+				<button class="btn btn-link">
+					Ajouter
+				</button>
+			</div>
+
+		</div>
+		<i class="bi bi-trash-fill"></i>
+		<div class="col-4 border border-dark" id="service-pannel">
+			<button id="toggle_user_param" class="btn btn-link">
+				Services
+			</button>
+		</div>
 	</div>
 {% endblock %}
