@@ -4,26 +4,43 @@
 {% endblock %}
 
 {% block body %}
-	<div class="administrator container-fluid row gap-3">
-		<div class="col-4 border border-dark">
-			<button id="toggle_user_param" class="btn btn-link">
-				Utilisateurs
-			</button>
-			<div id="user-pannel">
-				<turbo-frame id="user_show">
-					{{ include('administrator/_content.html.twig', { users: users }) }}
-				</turbo-frame>
-				<button class="btn btn-link">
-					Ajouter
-				</button>
+	{# <div class="administrator container-fluid row gap-3">
+			<div class="col-4 border border-dark">
+				<button id="toggle_user_param" class="btn btn-link">Utilisateurs</button>
+				<div id="user-pannel">
+					<turbo-frame id="new_user" turbo-visit-control="load">
+						<a href="{{ path('app_user_new') }}" turbo-frame="new_user" class="btn btn-link">Ajouter</a>
+					</turbo-frame>
+					<turbo-frame id="user_show" turbo-visit-control="reload">
+						{{ include('administrator/_content.html.twig', { users: users }) }}
+					</turbo-frame>
+				</div>
 			</div>
-
-		</div>
-		<i class="bi bi-trash-fill"></i>
-		<div class="col-4 border border-dark" id="service-pannel">
-			<button id="toggle_user_param" class="btn btn-link">
-				Services
-			</button>
+			<div class="col-4 border border-dark" id="service-pannel">
+				<button id="toggle_user_param" class="btn btn-link">Services</button>
+			</div>
+		</div> #}
+	<div class="administrator container-fluid row">
+		<ul class="nav flex-column col-2">
+			<li class="nav-item border border-black">
+				<a class="nav-link" href="#" data-target="{{ path('administrator_user') }}">Gestion utilisateurs</a>
+			</li>
+			<li class="nav-item border border-black">
+				<a class="nav-link" href="#" data-target="{{ path('administrator_service') }}">Gestion service</a>
+			</li>
+			<li class="nav-item border border-black">
+				<a class="nav-link" href="#" data-target="{{ path('administrator_habitat') }}">Gestion habitats</a>
+			</li>
+			<li class="nav-item border border-black">
+				<a class="nav-link" href="#" data-target="{{ path('administrator_animal') }}">Gestion animaux</a>
+			</li>
+			<li class="nav-item border border-black">
+				<a class="nav-link" href="#" data-target="{{ path('administrator_health') }}">Gestion état santé animaux</a>
+			</li>
+		</ul>
+		<div
+			class="col-10" id="content-area"><!-- Dynamic content will be loaded here -->
 		</div>
 	</div>
+
 {% endblock %}

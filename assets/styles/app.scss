@@ -80,5 +80,9 @@ body {
         display: none;
     }
 
-    .list-group-item-action:hover {}
+    .nav-link {
+        color: #356d6e;
+        font-weight: bold;
+        font-style: normal;
+    }
 }

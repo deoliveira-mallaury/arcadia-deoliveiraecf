@@ -15,15 +15,28 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/user')]
 class UserController extends AbstractController
 {
-    #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    //     #[Route('/', name: 'app_user_index', methods: ['GET'])]
+    //     public function index(UserRepository $userRepository): Response
+    //     {
+
+    //         return $this->render('user/index.html.twig', [
+    //             'users' => $userRepository->findAll(),
+    //         ]);
+    //     }
+
+    private function getRoleLabel(string $role): string
     {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
+        $roleLabels = [
+            'ROLE_ADMIN' => 'Administrateur',
+            'ROLE_VETERINARIAN' => 'Vétérinaire',
+            'ROLE_EMPLOYEE' => 'Employé',
+            'ROLE_USER' => 'Utilisateur',
+        ];
+
+        return $roleLabels[$role] ?? $role;
     }
 
-    #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
+    #[Route('/user/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
@@ -38,8 +51,7 @@ class UserController extends AbstractController
                 $plaintextPassword
             );
 
-            $roleID= $form->get('role')->getData();
-
+            $roleID = $form->get('role')->getData();
 
             switch ($roleID->getId()) {
                 case 1:
@@ -49,17 +61,23 @@ class UserController extends AbstractController
                     $role = 'ROLE_VETERINARIAN';
                     break;
                 case 3:
-                   $role = 'ROLE_EMPLOYEE';
+                    $role = 'ROLE_EMPLOYEE';
                     break;
                 default:
-                   $role = 'ROLE_USER';
+                    $role = 'ROLE_USER';
             }
             $user->setRoles($role);
             $user->setPassword($hashedPassword);
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            // Convert role to label before rendering
+            $roleLabel = $this->getRoleLabel($role);
+
+            return $this->render('user/_user.html.twig', [
+                'user' => $user,
+                'roleLabel' => $roleLabel,
+            ]);
         }
 
         return $this->render('user/new.html.twig', [
@@ -97,11 +115,11 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_administrator', [], Response::HTTP_SEE_OTHER);
     }
 }

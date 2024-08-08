@@ -1,11 +1,7 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New User{% endblock %}
-
-{% block body %}
-    <h1>Create new User</h1>
-
-    {{ include('user/_form.html.twig') }}
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
-{% endblock %}
+{# templates/user/new.html.twig #}
+<turbo-frame id="new_user">
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+    <button class="btn">Ajouter</button>
+    {{ form_end(form) }}
+</turbo-frame>

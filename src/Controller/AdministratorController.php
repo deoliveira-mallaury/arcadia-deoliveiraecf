@@ -31,7 +31,7 @@ class AdministratorController extends AbstractController
         if ($frameId === 'new_user') {
             $subRequest = $this->requestStack->getCurrentRequest()->duplicate([], null, ['_controller' => 'App\Controller\UserController::new']);
             $response = $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
-
+            dd($response->getContent());
             return new Response($response->getContent());
         }
         if ($frameId === 'show_user') {
@@ -45,5 +45,63 @@ class AdministratorController extends AbstractController
             'controller_name' => 'AdministratorController',
             'users' => $users,
         ]);
+    }
+    private function getRoleLabel(string $role): string
+    {
+        $roleLabels = [
+            'ROLE_ADMIN' => 'Administrateur',
+            'ROLE_VETERINARIAN' => 'Vétérinaire',
+            'ROLE_EMPLOYEE' => 'Employé',
+            'ROLE_USER' => 'Utilisateur',
+        ];
+
+        return $roleLabels[$role] ?? $role;
+    }
+
+    #[Route('/admin/user', name: 'administrator_user')]
+    public function user(UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findAll();
+        $formattedUsers = [];
+
+        foreach ($users as $user) {
+            $roles = $user->getRoles();
+            $formattedRoles = array_map([$this, 'getRoleLabel'], $roles);
+            $formattedUsers[] = [
+                'id' => $user->getId(),
+                'lastname' => $user->getLastname(),
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'roles' => implode(', ', $formattedRoles),
+            ];
+        }
+
+        return $this->render('administrator/user.html.twig', [
+            'users' => $formattedUsers,
+        ]);
+    }
+
+    #[Route('/admin/service', name: 'administrator_service')]
+    public function service(): Response
+    {
+        return $this->render('administrator/service.html.twig');
+    }
+
+    #[Route('/admin/habitat', name: 'administrator_habitat')]
+    public function habitat(): Response
+    {
+        return $this->render('administrator/habitat.html.twig');
+    }
+
+    #[Route('/admin/animal', name: 'administrator_animal')]
+    public function animal(): Response
+    {
+        return $this->render('administrator/animal.html.twig');
+    }
+
+    #[Route('/admin/health', name: 'administrator_health')]
+    public function health(): Response
+    {
+        return $this->render('administrator/health.html.twig');
     }
 }
