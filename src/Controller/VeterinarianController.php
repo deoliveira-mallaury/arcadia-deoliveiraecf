@@ -11,6 +11,7 @@ class VeterinarianController extends AbstractController
     #[Route('/veterinarian', name: 'app_veterinarian')]
     public function index(): Response
     {
+
         return $this->render('veterinarian/index.html.twig', [
             'controller_name' => 'VeterinarianController',
         ]);

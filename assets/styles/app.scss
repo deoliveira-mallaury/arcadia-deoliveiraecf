@@ -16,6 +16,7 @@ body {
 
     .nav-link,
     .navbar-brand,
+    .dropdown-toggle,
     .navbar-toggler {
         color: #356d6e;
         font-family: "Indie Flower", cursive;
@@ -57,15 +58,31 @@ body {
 // Login component
 .login {
     margin-top: 10vh;
+
     .input-icon {
         position: absolute;
         background-color: #356d6e;
         color: #FCF2E1;
-        right: 0; /* Adjust as needed */
+        right: 0;
+        /* Adjust as needed */
         height: 90%;
         width: 15%;
-        top:50%;
+        top: 50%;
         transform: translateY(-50%);
         // pointer-events: none; /* Prevent click events on the icon */
-      }
+    }
+}
+
+.administrator {
+    margin-top: 10vh;
+
+    #user-pannel {
+        display: none;
+    }
+
+    .nav-link {
+        color: #356d6e;
+        font-weight: bold;
+        font-style: normal;
+    }
 }

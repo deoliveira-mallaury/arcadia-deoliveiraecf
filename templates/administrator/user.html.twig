@@ -1,0 +1,15 @@
+{# templates/administrator/user.html.twig #}
+<div>
+
+	<turbo-frame id="show_user" turbo-visit-control="reload">
+		{{ include('user/index.html.twig', { users: users }) }}
+	</turbo-frame>
+	<button id="add_new_user">Ajouter</button>
+
+	<form id="new-user-form" action="{{ path('app_user_new') }}" method="post" class="row col-5">
+		{{ form_start(form, {'attr': {'class': ''}}) }}
+		{{ form_widget(form, {'attr': {'class': ''}}) }}
+		<button id="add_user" class="btn">Enregistrer</button>
+		{{ form_end(form) }}
+	</form>
+</div>y

@@ -8,9 +8,10 @@
 		<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 	{% endif %}
 	{% if app.user %}
-		<div class="mb-3">
+		<div class="mb-3 mt-5">
 			You are logged in as
 			{{ app.user.email }},
+			{{ app.user.roles ? app.user.roles|json_encode : '' }}
 			<a href="{{ path('app_logout') }}">Logout</a>
 		</div>
 	{% endif %}
