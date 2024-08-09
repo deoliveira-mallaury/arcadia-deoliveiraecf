@@ -1,31 +1,16 @@
 {# templates/administrator/user.html.twig #}
-<h2>Users</h2>
-<ul class="list-group">
-	{% for user in users %}
-		<li class="list-group-item list-group-item-action">
-			{{ user.name }}
-			{{ user.lastname }}
-			-
-			{{ user.roles }}
-			<form id="delete-form-{{ user.id }}" method="post" action="{{ path('app_user_delete', {'id': user.id}) }}" style="display: inline;">
-				<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-				<i class="bi bi-trash-fill float-end" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ user.id }}"></i>
-				<!-- Modal -->
-				<div class="modal fade" id="deleteModal-{{ user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel-{{ user.id }}" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel-{{ user.id }}">Etes-vous sûr de vouloir supprimer utilisateur ?</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-								<button type="button" class="btn btn-primary" onclick="document.getElementById('delete-form-{{ user.id }}').submit();">Sauvegarder</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</li>
-	{% endfor %}
-</ul>
+<div>
+
+	<turbo-frame id="show_user" turbo-visit-control="reload">
+		{{ include('user/index.html.twig', { users: users }) }}
+	</turbo-frame>
+	<button id="add_new_user">Ajouter</button>
+
+	<form id="new-user-form" action="{{ path('app_user_new') }}" method="post" class="row col-5">
+		{{ form_start(form, {'attr': {'class': ''}}) }}
+		{{ form_widget(form, {'attr': {'class': ''}}) }}
+		<button id="add_user" class="btn">Enregistrer</button>
+		{{ form_end(form) }}
+	</form>
+
+</div>y

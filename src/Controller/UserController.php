@@ -6,23 +6,27 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
-    //     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    //     public function index(UserRepository $userRepository): Response
-    //     {
+    #[Route('/', name: 'app_user_index', methods: ['GET'])]
+    public function index(UserRepository $userRepository): Response
+    {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        return $this->render('user/index.html.twig', [
+            'users' => $userRepository->findAll(),
+            'form' => $form->createView(),
 
-    //         return $this->render('user/index.html.twig', [
-    //             'users' => $userRepository->findAll(),
-    //         ]);
-    //     }
+        ]);
+    }
 
     private function getRoleLabel(string $role): string
     {
@@ -71,18 +75,23 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Convert role to label before rendering
-            $roleLabel = $this->getRoleLabel($role);
-
-            return $this->render('user/_user.html.twig', [
-                'user' => $user,
-                'roleLabel' => $roleLabel,
-            ]);
+            if ($request->isXmlHttpRequest()) {
+                return new JsonResponse([
+                    'success' => true,
+                    'user' => [
+                        'id' => $user->getId(),
+                        'name' => $user->getName(),
+                        'lastname' => $user->getLastname(),
+                        'email' => $user->getEmail(),
+                        'roles' => $this->getRoleLabel($role),
+                    ]
+                ]);
+            }
         }
 
-        return $this->render('user/new.html.twig', [
+        return $this->render('user/index.html.twig', [
+            'form' => $form->createView(),
             'user' => $user,
-            'form' => $form,
         ]);
     }
 

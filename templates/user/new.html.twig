@@ -1,7 +1,7 @@
 {# templates/user/new.html.twig #}
-<turbo-frame id="new_user">
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-    {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
-    <button class="btn">Ajouter</button>
-    {{ form_end(form) }}
-</turbo-frame>
+	<form id="new-user-form" action="{{ path('app_user_new') }}" method="post" class="row g-3">
+		{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+		{{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+		<button id="add_user" class="btn">Enregistrer</button>
+		{{ form_end(form) }}
+	</form>

@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\User;
+use App\Form\UserType;
+use App\Controller\UserController;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use App\Repository\UserRepository;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdministratorController extends AbstractController
 {
@@ -27,15 +30,16 @@ class AdministratorController extends AbstractController
 
         $frameId = $request->headers->get('Turbo-Frame');
         $users = $userRepository->findAll();
+        // var_dump($userRepository->getRole());
         // var_dump($users);
         if ($frameId === 'new_user') {
             $subRequest = $this->requestStack->getCurrentRequest()->duplicate([], null, ['_controller' => 'App\Controller\UserController::new']);
             $response = $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
-            dd($response->getContent());
+            // dd($response->getContent());
             return new Response($response->getContent());
         }
         if ($frameId === 'show_user') {
-            return $this->render('administrator/_content.html.twig', [
+            return $this->render('administrator/user.html.twig', [
                 'controller_name' => 'AdministratorController',
                 'users' => $users,
             ]);
@@ -63,7 +67,8 @@ class AdministratorController extends AbstractController
     {
         $users = $userRepository->findAll();
         $formattedUsers = [];
-
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
         foreach ($users as $user) {
             $roles = $user->getRoles();
             $formattedRoles = array_map([$this, 'getRoleLabel'], $roles);
@@ -73,13 +78,16 @@ class AdministratorController extends AbstractController
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
                 'roles' => implode(', ', $formattedRoles),
+                'roleIds' => $user->getRole()
             ];
         }
 
         return $this->render('administrator/user.html.twig', [
             'users' => $formattedUsers,
+            'form' => $form->createView(),
         ]);
     }
+
 
     #[Route('/admin/service', name: 'administrator_service')]
     public function service(): Response

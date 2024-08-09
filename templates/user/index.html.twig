@@ -1,41 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}User index
+{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+	<h1>User index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<table class="table table-hover" id="user-table">
+		<thead>
+			<tr>
+				<th>Email</th>
+				<th>Roles</th>
+				<th>Name</th>
+				<th>Lastname</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in users %}
+				<tr id="user-{{ user.id }}">
+					<td>{{ user.email }}</td>
+					<td>{{ user.roles }}</td>
+					<td>{{ user.name }}</td>
+					<td>{{ user.lastname }}</td>
+					<td>
+						<i class="bi bi-trash-fill float-end" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ user.id }}"></i>
+						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">No records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+	{% for user in users %}
+		<div class="modal fade" id="deleteModal-{{ user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel-{{ user.id }}" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel-{{ user.id }}">Etes-vous sûr de vouloir supprimer utilisateur ?</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+						<button type="button" class="btn btn-primary delete-user-btn" data-user-id="{{ user.id }}" data-target="{{ path('administrator_user') }}">Sauvegarder</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
 {% endblock %}
