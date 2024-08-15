@@ -24,15 +24,10 @@ class Service
 
     #[ORM\Column(length: 255)]
     private ?string $imageFilename = null;
-    /**
-     * @var Collection<int, Image>
-     */
-    #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'services')]
-    private Collection $image;
+
 
     public function __construct()
     {
-        $this->image = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -72,30 +67,6 @@ class Service
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Image>
-     */
-    public function getImage(): Collection
-    {
-        return $this->image;
-    }
-
-    public function addImage(Image $image): static
-    {
-        if (!$this->image->contains($image)) {
-            $this->image->add($image);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): static
-    {
-        $this->image->removeElement($image);
 
         return $this;
     }
