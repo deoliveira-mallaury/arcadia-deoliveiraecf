@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
+#[ORM\Table(name: 'service', uniqueConstraints: [new ORM\UniqueConstraint(name: 'unique_name', columns: ['name'])])]
 class Service
 {
     #[ORM\Id]
@@ -15,12 +16,14 @@ class Service
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 250)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 250)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $imageFilename = null;
     /**
      * @var Collection<int, Image>
      */
@@ -44,7 +47,19 @@ class Service
 
     public function setName(string $name): static
     {
-        $this->name = $name;
+        $this->name = strtolower($name);
+
+        return $this;
+    }
+
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(string $imageFilename): static
+    {
+        $this->imageFilename = $imageFilename;
 
         return $this;
     }
