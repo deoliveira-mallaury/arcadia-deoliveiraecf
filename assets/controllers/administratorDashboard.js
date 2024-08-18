@@ -36,6 +36,40 @@ export default function () {
         }
       });
     });
+    // $('#new-animal-form').submit(function (event) {
+    //   event.preventDefault();
+    //   var formData = $(this).serialize();
+
+    //   $.ajax({
+    //     type: 'POST',
+    //     url: $(this).attr('action'),
+    //     data: formData,
+    //     success: function (response) {
+    //       if (response.success) {
+    //         var newRow = `
+    //                   <tr id="user-${response.animal.id}">
+    //                       <td>${response.animal.name}</td>
+    //                       <td>${response.animal.condition}</td>
+    //                       <td>${response.animal.race.label}</td>
+    //                       <td>${response.animal.foodType}</td>
+    //                       <td>${response.animal.habitat.name}</td>
+    //                       <td>
+    //                           <i class="bi bi-trash-fill float-end" data-bs-toggle="modal" data-bs-target="#deleteModal-${response.user.id}"></i>
+    //                       </td>
+    //                   </tr>
+    //               `;
+    //         $('#show_animal tbody').append(newRow);
+    //       } else {
+    //         alert('Failed to add user.');
+    //       }
+    //     },
+    //     error: function () {
+    //       console.log(response);
+          
+    //       alert('An error occurred.');
+    //     }
+    //   });
+    // });
   });
 }
 // function submitFormAndRedirect(userId) {

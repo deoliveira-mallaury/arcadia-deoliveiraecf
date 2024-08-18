@@ -1,37 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Animal index{% endblock %}
+{% block title %}Animal index
+{% endblock %}
 
 {% block body %}
-    <h1>Animal index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Condition</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for animal in animals %}
-            <tr>
-                <td>{{ animal.id }}</td>
-                <td>{{ animal.name }}</td>
-                <td>{{ animal.condition }}</td>
-                <td>
-                    <a href="{{ path('app_animal_show', {'id': animal.id}) }}">show</a>
-                    <a href="{{ path('app_animal_edit', {'id': animal.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<h1>Animal index</h1>
+	<turbo-frame id="show_animal">
 
-    <a href="{{ path('app_animal_new') }}">Create new</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Condition</th>
+					<th>Race</th>
+					<th>Type de nourriture</th>
+					<th>Habitats</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for animal in animals %}
+					<tr>
+						<td>{{ animal.name }}</td>
+						<td>{{ animal.etat }}</td>
+						<td>{{ animal.race.label}}</td>
+						<td>{{ animal.foodType}}</td>
+						<td>{{ animal.habitat.name}}</td>
+						<td>
+							<form id="delete-form-{{ animal.id }}" method="post" action="{{ path('app_animal_delete', {'id': animal.id}) }}" style="display: inline;">
+
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ animal.id) }}">
+								<i class="bi bi-trash-fill float-end" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ animal.id }}"></i>
+								<!-- Modal -->
+								<div class="modal fade" id="deleteModal-{{ animal.id }}" tabindex="-1" aria-labelledby="exampleModalLabel-{{ animal.id }}" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel-{{ animal.id }}">Etes-vous sûr de vouloir supprimer utilisateur ?</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+												<button type="button" class="btn btn-primary" onclick="document.getElementById('delete-form-{{ animal.id }}').submit();">Sauvegarder</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+							<a href="{{ path('app_animal_show', {'id': animal.id}) }}">show</a>
+							<a href="{{ path('app_animal_edit', {'id': animal.id}) }}">edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</turbo-frame>
 {% endblock %}

@@ -2,43 +2,75 @@
 
 namespace App\Controller;
 
+use App\Entity\Race;
 use App\Entity\Animal;
 use App\Form\AnimalType;
+use App\Service\ImageUploader;
 use App\Repository\AnimalRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/animal')]
 class AnimalController extends AbstractController
 {
     #[Route('/', name: 'app_animal_index', methods: ['GET'])]
-    public function index(AnimalRepository $animalRepository): Response
+    public function index(Request $request, AnimalRepository $animalRepository, EntityManagerInterface $entityManager): Response
     {
+
         return $this->render('animal/index.html.twig', [
             'animals' => $animalRepository->findAll(),
         ]);
     }
 
-    #[Route('/new', name: 'app_animal_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/administrator/animal', name: 'administrator_animal', methods: ['GET', 'POST'])]
+    public function new(Request $request, AnimalRepository $animalRepository, ImageUploader $imageUploader, EntityManagerInterface $entityManager): Response
     {
+        $frameId = $request->headers->get('Turbo-Frame');
         $animal = new Animal();
         $form = $this->createForm(AnimalType::class, $animal);
         $form->handleRequest($request);
 
+        $errorMessage = '';
+        $animals = $animalRepository->findAll();
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($animal);
-            $entityManager->flush();
+            $newRaceData = $form->get('newRace')->getData();
+            if ($newRaceData) {
+                $newRace = new Race();
+                $newRace->setLabel($newRaceData->getLabel());
+                $entityManager->persist($newRace);
+                $animal->setRace($newRace);
+            }
 
-            return $this->redirectToRoute('app_animal_index', [], Response::HTTP_SEE_OTHER);
-        }
+            $imageFile = $form->get('imageFilename')->getData();
+            if ($imageFile) {
+                try {
+                    $newFilename = $imageUploader->upload($imageFile);
+                    $animal->setImageFilename($newFilename);
+                } catch (\Exception $e) {
+                    $errorMessage = $e->getMessage();
+                }
+            }
 
-        return $this->render('animal/new.html.twig', [
-            'animal' => $animal,
+            if (empty($errorMessage)) {
+                $entityManager->persist($animal);
+                $entityManager->flush();
+                $this->addFlash('success', 'Service added successfully!');
+            }
+            return $this->render('administrator/animal.html.twig', [
+                'animals' => $animal,
+                'form' => $form,
+                'errorMessage' => $errorMessage,
+    
+            ]);        }
+        return $this->render('administrator/animal.html.twig', [
+            'animals' => $animals,
             'form' => $form,
+            'errorMessage' => $errorMessage,
+
         ]);
     }
 
@@ -71,7 +103,7 @@ class AnimalController extends AbstractController
     #[Route('/{id}', name: 'app_animal_delete', methods: ['POST'])]
     public function delete(Request $request, Animal $animal, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$animal->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $animal->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($animal);
             $entityManager->flush();
         }

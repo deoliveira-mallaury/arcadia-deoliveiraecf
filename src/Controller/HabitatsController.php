@@ -3,37 +3,69 @@
 namespace App\Controller;
 
 use App\Entity\Habitat;
+use App\Form\HabitatType;
+use App\Service\ImageUploader;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HabitatsController extends AbstractController
 {
     #[Route('/habitats', name: 'app_habitats')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
-        return $this->render('habitats/index.html.twig', [
-            'controller_name' => 'HabitatsController',
+        $habitatRepository = $entityManager->getRepository(Habitat::class);
+        $habitats = $habitatRepository->findAll();
+
+        return $this->render('habitat/index.html.twig', [
+            'habitats' => $habitats,
         ]);
     }
     
-    #[Route('/habitats/new', name: 'app_habitats_new')]
-    public function new(EntityManagerInterface $em)
+    #[Route('/admin/habitat', name: 'administrator_habitat')]
+    public function new(EntityManagerInterface $entityManager, Request $request, ImageUploader $imageUploader, SluggerInterface $slugger): Response
     {
-        $habitatsNames=['Savane', 'Jungle', 'Marais'];
-        $habitatsDescr=
-        [
-            'Des plaines arides, où vivent des animaux légendaires.',
-            'Une jungle luxuriante abritant des espèces rares et sauvages',
-            'Un écosystème riche en faune sauvage et en végétation luxuriante'
-        ];
-        foreach($habitatsNames as $el => $name){
-            $habitatsGen= new Habitat();
-            $habitatsGen->setName($name);
-            $habitatsGen->setDescription($habitatsDescr[$el]);
-            $em->persist($habitatsGen);
-            $em->flush();
+        $frameId = $request->headers->get('Turbo-Frame');
+        $habitatRepository = $entityManager->getRepository(Habitat::class);
+        $habitats = $habitatRepository->findAll();
+        $habitat = new Habitat();
+
+        $form = $this->createForm(HabitatType::class, $habitat);
+        $form->handleRequest($request);
+        $errorMessage = '';
+
+        if ($frameId === 'show_habitat') {
+            return $this->render('administrator/habitat.html.twig', [
+                'controller_name' => 'AdministratorController',
+                'habitats' => $habitats,
+            ]);
+        }   
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('imageFilename')->getData();
+            if ($imageFile) {
+                try {
+                    $newFilename = $imageUploader->upload($imageFile);
+                    $habitat->setImageFilename($newFilename);
+                } catch (\Exception $e) {
+                    $errorMessage = $e->getMessage();
+                }
+            }
+
+            if (empty($errorMessage)) {
+                $entityManager->persist($habitat);
+                $entityManager->flush();
+                $this->addFlash('success', 'Service added successfully!');
+            }
         }
+
+        return $this->render('administrator/habitat.html.twig', [
+            'form' => $form->createView(),
+            'habitats' => $habitats,
+            'errorMessage' => $errorMessage,
+        ]);
     }
 }

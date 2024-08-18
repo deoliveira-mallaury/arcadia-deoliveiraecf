@@ -196,4 +196,4 @@ class Animal
 
         return $this;
     }
-}
+    }

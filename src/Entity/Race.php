@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RaceRepository::class)]
+#[ORM\Table(name: 'race', uniqueConstraints: [new ORM\UniqueConstraint(name: 'unique_name', columns: ['label'])])]
 class Race
 {
     #[ORM\Id]
