@@ -1,43 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}User index
+{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+	<h1>User index</h1>
+	<turbo-frame id="index_user" turbo-visit-control="reload">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+		<table class="table table-hover" id="user-table">
+			<thead>
+				<tr>
+					<th>Email</th>
+					<th>Roles</th>
+					<th>Name</th>
+					<th>Lastname</th>
+					{# <th>actions</th> #}
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td>{{ user.email }}</td>
+						<td>{{ user.roles|join(', ') }}</td>
+						{# <td>{{ user.roleIds.id }}</td> #}
+						<td>{{ user.name }}</td>
+						<td>{{ user.lastname }}</td>
+						<td>
+							<form id="delete-form-{{ user.id }}" method="post" action="{{ path('app_user_delete', {'id': user.id}) }}" style="display: inline;">
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+								<i class="bi bi-trash-fill float-end" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ user.id }}"></i>
+								<!-- Modal -->
+								<div class="modal fade" id="deleteModal-{{ user.id }}" tabindex="-1" aria-labelledby="exampleModalLabel-{{ user.id }}" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel-{{ user.id }}">Etes-vous sûr de vouloir supprimer utilisateur ?</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+												<button type="button" class="btn btn-primary" onclick="document.getElementById('delete-form-{{ user.id }}').submit();">Sauvegarder</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+
+							<a href="{{ path('app_user_show', {'id': user.id}) }}" data-turbo-frame="show_user">show</a>
+							<a href="{{ path('app_user_edit', {'id': user.id}) }}" data-turbo-frame="edit_user">edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="7">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</turbo-frame>
+	{# <a href="{{ path('app_user_new') }}">Create new</a> #}
 {% endblock %}

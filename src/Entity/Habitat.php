@@ -24,6 +24,8 @@ class Habitat
     #[ORM\Column(length: 250)]
     private ?string $habitatComment = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $imageFilename = null;
 
     /**
      * @var Collection<int, Animal>
@@ -31,17 +33,10 @@ class Habitat
     #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'habitat')]
     private Collection $animals;
 
-    /**
-     * @var Collection<int, Image>
-     */
-    #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'habitats')]
-    private Collection $image;
-
 
     public function __construct()
     {
         $this->animals = new ArrayCollection();
-        $this->image = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +68,17 @@ class Habitat
         return $this;
     }
 
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(string $imageFilename): static
+    {
+        $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
     public function getHabitatComment(): ?string
     {
         return $this->habitatComment;
@@ -115,29 +121,4 @@ class Habitat
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Image>
-     */
-    public function getImage(): Collection
-    {
-        return $this->image;
-    }
-
-    public function addImage(Image $image): static
-    {
-        if (!$this->image->contains($image)) {
-            $this->image->add($image);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): static
-    {
-        $this->image->removeElement($image);
-
-        return $this;
-    }
-
 }
