@@ -1,0 +1,30 @@
+{# templates/administrator/dashboard.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard
+{% endblock %}
+
+{% block body %}
+	<div class="administrator container-fluid row">
+		<ul class="administrator-dashboard mt-5 nav position-relative flex-column col-2 h-25">
+			<li class="nav-item border ">
+				<a class="nav-link nav-admin" href="{{ path('administrator_user') }}" data-target="{{ path('administrator_user') }}">Gestion des utilisateurs</a>
+			</li>
+			<li class="nav-item border ">
+				<a class="nav-link nav-admin" href="{{ path('administrator_service') }}" data-target="{{ path('administrator_service') }}">Gestion services</a>
+			</li>
+			<li class="nav-item border ">
+				<a class="nav-link nav-admin" href="{{ path('administrator_habitat') }}" data-target="{{ path('administrator_habitat') }}">Gestion habitats</a>
+			</li>
+			<li class="nav-item border ">
+				<a class="nav-link nav-admin" href="{{ path('administrator_animal') }}" data-target="{{ path('administrator_animal') }}">Gestion animaux</a>
+			</li>
+			<li class="nav-item border border-black">
+				<a class="nav-link nav-admin" href="{{ path('administrator_health') }}">Gestion état santé animaux</a>
+			</li>
+		</ul>
+		<div class="col-10" id="content-area">
+			{% block content %}{% endblock %}
+		</div>
+	</div>
+{% endblock %}

@@ -6,7 +6,7 @@
 {% block body %}
 
 	<h1>Animal index</h1>
-	<turbo-frame id="show_animal">
+	<turbo-frame id="index_animal">
 
 		<table class="table">
 			<thead>
@@ -47,8 +47,8 @@
 									</div>
 								</div>
 							</form>
-							<a href="{{ path('app_animal_show', {'id': animal.id}) }}">show</a>
-							<a href="{{ path('app_animal_edit', {'id': animal.id}) }}">edit</a>
+							<a href="{{ path('app_animal_show', {'id': animal.id}) }}" data-turbo-frame="show_animal">show</a>
+							<a href="{{ path('app_animal_edit', {'id': animal.id}) }}" data-turbo-frame="edit_animal">edit</a>
 						</td>
 					</tr>
 				{% else %}

@@ -26,7 +26,7 @@ class AnimalType extends AbstractType
                 ],
             ])
             ->add('etat', TextType::class, [
-                'label' => 'Etat de l\'habitat',
+                'label' => 'Etat de l\'animal',
                 'attr' => [
                     'class' => 'form-control',
                 ],

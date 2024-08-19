@@ -1,4 +1,7 @@
 {# templates/administrator/service.html.twig #}
+{% extends 'administrator/dashboard.html.twig' %}
+
+{% block content %}
 <div class="container-fluid row align-items-center">
 	<turbo-frame id="show_services" turbo-visit-control="reload">
 		{{ include('services/index.html.twig', { services: services }) }}
@@ -15,3 +18,5 @@
 		</form>
 	</div>
 </div>
+{% endblock %}
+

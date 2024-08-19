@@ -16,15 +16,36 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[Route('/user')]
 class UserController extends AbstractController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
+        $users = $userRepository->findAll();
+        $formattedUsers = [];
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-            'form' => $form->createView(),
+        foreach ($users as $user) {
+            $roles = $user->getRoles();
+            $formattedRoles = array_map([$this, 'getRoleLabel'], $roles);
+            $formattedUsers[] = [
+                'id' => $user->getId(),
+                'lastname' => $user->getLastname(),
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'roles' => implode(', ', $formattedRoles),
+                'roleIds' => $user->getRole()
+            ];
+        }
 
+        return $this->render('administrator/user.html.twig', [
+            'users' => $formattedUsers,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -72,7 +93,7 @@ class UserController extends AbstractController
             }
             $user->setRoles($role);
             $user->setPassword($hashedPassword);
-            $entityManager->persist($user);
+            $this->$entityManager->persist($user);
             $entityManager->flush();
 
             if ($request->isXmlHttpRequest()) {
@@ -91,7 +112,7 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'form' => $form->createView(),
-            'user' => $user,
+            'users' => $user,
         ]);
     }
 
@@ -117,7 +138,7 @@ class UserController extends AbstractController
 
         return $this->render('user/edit.html.twig', [
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(), // Ensure form is passed as a view
         ]);
     }
 

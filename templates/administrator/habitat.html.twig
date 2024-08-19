@@ -1,5 +1,7 @@
 {# templates/administrator/habitat.html.twig #}
+{% extends 'administrator/dashboard.html.twig' %}
 
+{% block content %}
 <div class="container-fluid row align-items-center">
 	<turbo-frame id="show_habitat" turbo-visit-control="reload">
 		{{ include('habitat/index.html.twig', { habitats: habitats }) }}
@@ -16,3 +18,4 @@
 		</form>
 	</div>
 </div>
+{% endblock %}

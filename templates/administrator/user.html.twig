@@ -1,15 +1,30 @@
 {# templates/administrator/user.html.twig #}
-<div>
+{% extends 'administrator/dashboard.html.twig' %}
 
-	<turbo-frame id="show_user" turbo-visit-control="reload">
-		{{ include('user/index.html.twig', { users: users }) }}
-	</turbo-frame>
-	<button id="add_new_user">Ajouter</button>
-
-	<form id="new-user-form" action="{{ path('app_user_new') }}" method="post" class="row col-5">
-		{{ form_start(form, {'attr': {'class': ''}}) }}
-		{{ form_widget(form, {'attr': {'class': ''}}) }}
-		<button id="add_user" class="btn">Enregistrer</button>
-		{{ form_end(form) }}
-	</form>
-</div>
+{% block content %}
+	<div class="container-fluid row">
+		<turbo-frame id="index_user" turbo-visit-control="reload">
+			{{ include('user/index.html.twig', { users: users }) }}
+		</turbo-frame>
+		<button data-bs-toggle="collapse" type="button" data-bs-target="#new-user-form" aria-controls="new-user-form">
+			Ajouter utilisateur
+		</button>
+		<turbo-frame
+			id="show_user" turbo-visit-control="reload" class="col"><!-- Les détails de l'utilisateur seront chargés ici -->
+		</turbo-frame>
+		<turbo-frame
+			id="edit_user" turbo-visit-control="reload" class="col"><!-- Le formulaire d'édition de l'utilisateur sera chargé ici -->
+		</turbo-frame>
+		<form id="new-user-form" action="{{ path('app_user_new') }}" method="post" class="row col-5 collapse">
+			<legend class="d-flex justify-content-between align-items-center">Ajout utilisateur
+				<button data-bs-toggle="collapse" href="#new-user-form">
+					<i class="bi bi-x-circle"></i>
+				</button>
+			</legend>
+			{{ form_start(form, {'attr': {'class': ''}}) }}
+			{{ form_widget(form, {'attr': {'class': ''}}) }}
+			<button id="add_user" class="btn">Enregistrer</button>
+			{{ form_end(form) }}
+		</form>
+	</div>
+{% endblock %}

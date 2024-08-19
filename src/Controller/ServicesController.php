@@ -28,7 +28,6 @@ class ServicesController extends AbstractController
     #[Route('/administrator/service', name: 'administrator_service')]
     public function service(Request $request, ImageUploader $imageUploader, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-        $frameId = $request->headers->get('Turbo-Frame');
         $serviceRepository = $entityManager->getRepository(Service::class);
         $services = $serviceRepository->findAll();
         $service = new Service();
@@ -38,12 +37,6 @@ class ServicesController extends AbstractController
 
         $errorMessage = '';
 
-        if ($frameId === 'show_services') {
-            return $this->render('administrator/services.html.twig', [
-                'controller_name' => 'AdministratorController',
-                'services' => $services,
-            ]);
-        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('imageFilename')->getData();

@@ -51,7 +51,7 @@
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									{% if app.user.role.getId()== 1%}
 										<li>
-											<a class="dropdown-item nav-link 	 {{ app.request.get('_route') == 'app_administrator' ? 'active' : '' }}" href="{{ path('app_administrator') }}">Dashboard</a>
+											<a class="dropdown-item nav-link 	 {{ app.request.get('_route') == 'administrator' ? 'active' : '' }}" href="{{ path('administrator') }}">Dashboard</a>
 										</li>
 									{% endif %}
 
