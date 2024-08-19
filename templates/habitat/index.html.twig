@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HabitatsController!
+{% endblock %}
+
+{% block body %}
+	<div class="container services min-vh-90" id="show_habitats">
+		<h1 class="text-center">Nos Habitats</h1>
+		<div class="d-flex flex-column align-items-center">
+			<div class="example-wrapper services row justify-content-center">
+				{% for habitat in habitats %}
+					<div class="card m-3 col-5 col-md-3">
+						<div class="card-body p-1">
+							<img src="{{ asset('uploads/images/' ~ habitat.imageFilename) }}" class="card-img-top w-100 mx-auto" alt="..."/>
+							<h5 class="card-title text-center mt-2">{{ habitat.name }}</h5>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

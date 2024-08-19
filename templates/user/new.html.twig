@@ -1,11 +1,7 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New User{% endblock %}
-
-{% block body %}
-    <h1>Create new User</h1>
-
-    {{ include('user/_form.html.twig') }}
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
-{% endblock %}
+{# templates/user/new.html.twig #}
+	<form id="new-user-form" action="{{ path('app_user_new') }}" method="post" class="row g-3">
+		{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+		{{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+		<button id="add_user" class="btn">Enregistrer</button>
+		{{ form_end(form) }}
+	</form>

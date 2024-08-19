@@ -6,24 +6,62 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+        $users = $userRepository->findAll();
+        $formattedUsers = [];
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        foreach ($users as $user) {
+            $roles = $user->getRoles();
+            $formattedRoles = array_map([$this, 'getRoleLabel'], $roles);
+            $formattedUsers[] = [
+                'id' => $user->getId(),
+                'lastname' => $user->getLastname(),
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'roles' => implode(', ', $formattedRoles),
+                'roleIds' => $user->getRole()
+            ];
+        }
+
+        return $this->render('administrator/user.html.twig', [
+            'users' => $formattedUsers,
+            'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
+    private function getRoleLabel(string $role): string
+    {
+        $roleLabels = [
+            'ROLE_ADMIN' => 'Administrateur',
+            'ROLE_VETERINARIAN' => 'Vétérinaire',
+            'ROLE_EMPLOYEE' => 'Employé',
+            'ROLE_USER' => 'Utilisateur',
+        ];
+
+        return $roleLabels[$role] ?? $role;
+    }
+
+    #[Route('/user/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
@@ -38,8 +76,7 @@ class UserController extends AbstractController
                 $plaintextPassword
             );
 
-            $roleID= $form->get('role')->getData();
-
+            $roleID = $form->get('role')->getData();
 
             switch ($roleID->getId()) {
                 case 1:
@@ -49,22 +86,33 @@ class UserController extends AbstractController
                     $role = 'ROLE_VETERINARIAN';
                     break;
                 case 3:
-                   $role = 'ROLE_EMPLOYEE';
+                    $role = 'ROLE_EMPLOYEE';
                     break;
                 default:
-                   $role = 'ROLE_USER';
+                    $role = 'ROLE_USER';
             }
             $user->setRoles($role);
             $user->setPassword($hashedPassword);
-            $entityManager->persist($user);
+            $this->$entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            if ($request->isXmlHttpRequest()) {
+                return new JsonResponse([
+                    'success' => true,
+                    'user' => [
+                        'id' => $user->getId(),
+                        'name' => $user->getName(),
+                        'lastname' => $user->getLastname(),
+                        'email' => $user->getEmail(),
+                        'roles' => $this->getRoleLabel($role),
+                    ]
+                ]);
+            }
         }
 
-        return $this->render('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form,
+        return $this->render('user/index.html.twig', [
+            'form' => $form->createView(),
+            'users' => $user,
         ]);
     }
 
@@ -90,18 +138,18 @@ class UserController extends AbstractController
 
         return $this->render('user/edit.html.twig', [
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(), // Ensure form is passed as a view
         ]);
     }
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_administrator', [], Response::HTTP_SEE_OTHER);
     }
 }

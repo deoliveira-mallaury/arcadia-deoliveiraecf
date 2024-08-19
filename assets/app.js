@@ -14,12 +14,12 @@ Turbo.start();
 // import the function from greet.js (the .js extension is optional)
 // ./ (or ../) means to look for a local file
 import loginformValidator from './controllers/loginformValidator.js';
+import administratorDashboard from './controllers/administratorDashboard.js';
 
 
 
 $(document).ready(function () {
-    loginformValidator()
- 
-
+    loginformValidator();
+    administratorDashboard()
     // $('body').prepend('<h1>' +  + '</h1>');
 });

@@ -18,7 +18,7 @@ contact:
 login:
     path: /login
     controller: LoginController:index
-dministrator:
+administrator:
     path: /administrator
     controller: AdministratorController:index
 veterinarian:
