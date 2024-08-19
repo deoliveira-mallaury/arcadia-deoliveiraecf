@@ -1,4 +1,8 @@
 security:
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER, ROLE_VETERINARIAN, ROLE_EMPLOYEE]
+        ROLE_VETERINARIAN: [ROLE_USER]
+        ROLE_EMPLOYEE:    [ROLE_USER]
     password_hashers:
         App\Entity\User:
             algorithm: sodium
@@ -10,23 +14,39 @@ security:
             cost: 15
 
     providers:
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: 'admin_password'
+                        roles: 'ROLE_ADMIN'
+                    veterinarian:
+                        password: 'veterinarian_password'
+                        roles: 'ROLE_VETERINARIAN'
+                    employee:
+                        password: 'employee_password'
+                        roles: 'ROLE_EMPLOYEE'
         app_user_provider:
             entity:
                 class: App\Entity\User
                 property: email
 
     firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
         main:
             lazy: true
-            provider: app_user_provider
-            custom_authenticators:
-                - App\Security\LoginFormAuthenticator
             form_login:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
             logout:
                 path: app_logout
+                target: app_homepage
+            provider: app_user_provider
+            custom_authenticators:
+                - App\Security\LoginFormAuthenticator
 
     access_control:
         - { path: ^/administrator, roles: ROLE_ADMIN }

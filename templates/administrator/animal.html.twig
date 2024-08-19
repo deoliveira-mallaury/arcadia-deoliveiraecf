@@ -1,3 +1,30 @@
-{# templates/admin/service.html.twig #}
-<h2>Gestion animaux</h2>
-<p>Contenu pour la gestion des animaux.</p>
+{# templates/administrator/habitat.html.twig #}
+{% extends 'administrator/dashboard.html.twig' %}
+
+{% block content %}
+	<div class="container-fluid row align-items-center">
+		<turbo-frame id="index_animal" turbo-visit-control="reload">
+			{{ include('animal/index.html.twig', { animals: animals }) }}
+		</turbo-frame>
+		<div class="container-fluid new_animal mb-5 row" d-flex "">
+			<button data-bs-toggle="collapse" href="#new-animal-form">Ajouter Animal</button>
+			<turbo-frame
+				id="show_animal" turbo-visit-control="reload" class="col"><!-- Les détails de l'animal seront chargés ici -->
+			</turbo-frame>
+			<turbo-frame
+				id="edit_animal" turbo-visit-control="reload" class="col"><!-- Le formulaire d'édition de l'animal sera chargé ici -->
+			</turbo-frame>
+			<form id="new-animal-form" action="{{ path('administrator_animal') }}" method="post" enctype="multipart/form-data" class="collapse row align-items-center col border border-dark">
+				<legend>Ajouter Animal</legend>
+
+				{{ form_start(form, {'attr': {'class': ''}}) }}
+				{{ form_widget(form, {'attr': {'class': ''}}) }}
+				{% if errorMessage %}
+					<div id="error-message" style="color: red;">{{ errorMessage }}</div>
+				{% endif %}
+				<button id="add_animal" class="btn">Enregistrer</button>
+				{{ form_end(form) }}
+			</form>
+		</div>
+	</div>
+{% endblock %}

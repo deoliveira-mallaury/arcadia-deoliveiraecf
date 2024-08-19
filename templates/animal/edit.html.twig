@@ -1,13 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Animal{% endblock %}
+{% block title %}Edit Animal
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Animal</h1>
+	<h1>Edit Animal</h1>
+	<turbo-frame id="edit_animal" turbo-visit-control="reload" class="col-4 ">
 
-    {{ include('animal/_form.html.twig', {'button_label': 'Update'}) }}
+		<legend class="d-flex justify-content-between align-items-center">Modifier Animal
+			<button type="button" class="btn btn-link" data-bs-toggle="collapse" aria-controls="edit_animal_collapse" data-bs-target="#edit_animal_collapse">
+				<i class="bi bi-x-circle"></i>
+			</button>
+		</legend>
+		<div id="edit_animal_collapse" class="collapse show">
 
-    <a href="{{ path('app_animal_index') }}">back to list</a>
+			{{ form_start(form) }}
+			{{ form_widget(form) }}
+			<button class="btn">{{ button_label|default('Update') }}</button>
+			{{ form_end(form) }}
+		</div>
 
-    {{ include('animal/_delete_form.html.twig') }}
+	</turbo-frame>
+
+	<a href="{{ path('app_animal_index') }}">back to list</a>
+
+	{{ include('animal/_delete_form.html.twig') }}
 {% endblock %}

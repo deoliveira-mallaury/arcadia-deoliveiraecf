@@ -33,6 +33,9 @@ class Animal
     #[ORM\Column(length: 50)]
     private ?string $size = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $imageFilename = null;
+
     /**
      * @var Collection<int, VeterinaryRepport>
      */
@@ -47,16 +50,9 @@ class Animal
     #[ORM\JoinColumn(nullable: false)]
     private ?Habitat $habitat = null;
 
-    /**
-     * @var Collection<int, Image>
-     */
-    #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'animals')]
-    private Collection $image;
-
     public function __construct()
     {
         $this->veterinaryRepports = new ArrayCollection();
-        $this->image = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,6 +132,17 @@ class Animal
         return $this;
     }
 
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(string $imageFilename): static
+    {
+        $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
     /**
      * @return Collection<int, VeterinaryRepport>
      */
@@ -189,28 +196,4 @@ class Animal
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Image>
-     */
-    public function getImage(): Collection
-    {
-        return $this->image;
     }
-
-    public function addImage(Image $image): static
-    {
-        if (!$this->image->contains($image)) {
-            $this->image->add($image);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): static
-    {
-        $this->image->removeElement($image);
-
-        return $this;
-    }
-}

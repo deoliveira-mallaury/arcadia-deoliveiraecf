@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
+#[ORM\Table(name: 'service', uniqueConstraints: [new ORM\UniqueConstraint(name: 'unique_name', columns: ['name'])])]
 class Service
 {
     #[ORM\Id]
@@ -15,21 +16,18 @@ class Service
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 250)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 250)]
     private ?string $description = null;
 
-    /**
-     * @var Collection<int, Image>
-     */
-    #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'services')]
-    private Collection $image;
+    #[ORM\Column(length: 255)]
+    private ?string $imageFilename = null;
+
 
     public function __construct()
     {
-        $this->image = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -44,7 +42,19 @@ class Service
 
     public function setName(string $name): static
     {
-        $this->name = $name;
+        $this->name = strtolower($name);
+
+        return $this;
+    }
+
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(string $imageFilename): static
+    {
+        $this->imageFilename = $imageFilename;
 
         return $this;
     }
@@ -57,30 +67,6 @@ class Service
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Image>
-     */
-    public function getImage(): Collection
-    {
-        return $this->image;
-    }
-
-    public function addImage(Image $image): static
-    {
-        if (!$this->image->contains($image)) {
-            $this->image->add($image);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): static
-    {
-        $this->image->removeElement($image);
 
         return $this;
     }
