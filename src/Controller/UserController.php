@@ -4,9 +4,13 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
+use Symfony\Component\Mailer\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -62,7 +66,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -93,8 +97,21 @@ class UserController extends AbstractController
             }
             $user->setRoles($role);
             $user->setPassword($hashedPassword);
-            $this->$entityManager->persist($user);
+            $entityManager->persist($user);
             $entityManager->flush();
+
+            $email = (new TemplatedEmail())
+                ->from('mallaufb@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Bienvenue sur notre plateforme !')
+                ->htmlTemplate('mailer/signup.html.twig')
+                ->context([
+                    'expiration_date' => new \DateTime('+7 days'),
+                    'name' => $user->getName(),
+                    'lastname' => $user->getLastname(),
+                    'mail' => $user->getEmail(),
+                ]);
+            $mailer->send($email);
 
             if ($request->isXmlHttpRequest()) {
                 return new JsonResponse([
@@ -150,6 +167,6 @@ class UserController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_administrator', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }
