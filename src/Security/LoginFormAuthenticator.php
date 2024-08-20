@@ -60,7 +60,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
             return new RedirectResponse($targetPath);
         }
         if (in_array('ROLE_ADMIN', $user->getRoles())) {
-            return new RedirectResponse($this->router->generate('app_administrator'));
+            return new RedirectResponse($this->router->generate('app_admin_dashboard'));
         }
 
         if (in_array('ROLE_VETERINARIAN', $user->getRoles())) {
