@@ -42,6 +42,28 @@ class ImageUploader
 
         return $newFilename;
     }
+    public function uploadProd(UploadedFile $file): string
+    {
+        if (!in_array($file->getMimeType(), self::ALLOWED_MIME_TYPES)) {
+            throw new \Exception('Invalid image format. Allowed formats are JPEG, PNG, and GIF.');
+        }
+
+        if ($file->getSize() > self::MAX_FILE_SIZE) {
+            throw new \Exception('Image file size exceeds the maximum allowed size of 2MB.');
+        }
+
+        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = $this->slugger->slug($originalFilename);
+        $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+        try {
+            $file->move($this->getTargetDirectory(), $newFilename);
+        } catch (FileException $e) {
+            throw new \Exception('Failed to upload image. Please try again.');
+        }
+
+        return $newFilename;
+    }
 
     public function getTargetDirectory()
     {

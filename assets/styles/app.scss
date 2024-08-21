@@ -29,49 +29,7 @@
 //     }
 // }
 
-// // Homepage component
-// .homepage {
-//     margin-top: 10vh;
-//     // .imgZoo{
-//     //     max-width: 50vw;
-//     // }
-// }
 
-// // Services component
-// .services {
-//     margin-top: 10vh;
-
-// }
-
-// // Habitats component
-// .habitats {
-//     margin-top: 10vh;
-
-// }
-
-// // Contact component
-// .contact {
-//     margin-top: 10vh;
-
-// }
-
-// // Login component
-// .login {
-//     margin-top: 10vh;
-
-//     .input-icon {
-//         position: absolute;
-//         background-color: #356d6e;
-//         color: #FCF2E1;
-//         right: 0;
-//         /* Adjust as needed */
-//         height: 90%;
-//         width: 15%;
-//         top: 50%;
-//         transform: translateY(-50%);
-//         // pointer-events: none; /* Prevent click events on the icon */
-//     }
-// }
 
 // .administrator {
 //     margin-top: 10vh;
@@ -95,52 +53,95 @@ body {
     color: #356d6e;
     min-height: 100vh;
 
-    .navbar {
-        border-radius: 0 0 20px 20px;
-        background-color: #FBB996;
-    }
-
-    .navbar .nav-link,
-    .navbar .navbar-brand,
-    .navbar .dropdown-toggle,
-    .navbar .navbar-toggler .nav-item {
-        color: #356d6e !important;
-        font-family: "Indie Flower", cursive;
-        font-weight: bold;
-        font-style: normal;
-    }
-
-    .nav-admin {
-        color: inherit;
-        /* Utilise la couleur héritée du parent */
-        text-decoration: none;
-    }
-
-    .navbar .active {
-        color: #FCF2E1;
-    }
-
-    /* Administrator component */
-    .administrator {
-        margin-top: 10vh;
-        background-color: #FCF2E1;
-
-    }
-
-    .administrator-dashboard {
-        color: #356d6e;
-        font-family: "Indie Flower", cursive;
-
-        background-color: #FBB996;
-
-    }
-
-    #content-area {
-        background-color: #FCF2E1;
-
-    }
 }
 
+.navbar {
+    border-radius: 0 0 20px 20px;
+    background-color: #FBB996;
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .dropdown-toggle,
+.navbar .navbar-toggler .nav-item {
+    color: #356d6e !important;
+    font-family: "Indie Flower", cursive;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.nav-admin {
+    color: inherit;
+    /* Utilise la couleur héritée du parent */
+    text-decoration: none;
+}
+
+.navbar .active {
+    color: #FCF2E1;
+}
+
+/* Administrator component */
+.administrator {
+    margin-top: 10vh;
+    background-color: #FCF2E1;
+
+}
+
+.administrator-dashboard {
+    color: #356d6e;
+    font-family: "Indie Flower", cursive;
+
+    background-color: #FBB996;
+
+}
+
+#content-area {
+    background-color: #FCF2E1;
+
+}
+// Homepage component
+.homepage {
+    margin-top: 10vh;
+    // .imgZoo{
+    //     max-width: 50vw;
+    // }
+}
+
+// Services component
+.services {
+    margin-top: 10vh;
+
+}
+
+// Habitats component
+.habitats {
+    margin-top: 10vh;
+
+}
+
+// Contact component
+.contact {
+    margin-top: 10vh;
+
+}
+
+// Login component
+.login {
+    margin-top: 10vh;
+
+    .input-icon {
+        position: absolute;
+        background-color: #356d6e;
+        color: #FCF2E1;
+        right: 0;
+        /* Adjust as needed */
+        height: 90%;
+        width: 15%;
+        top: 50%;
+        transform: translateY(-50%);
+        // pointer-events: none; /* Prevent click events on the icon */
+    }
+}
 /* Navbar component */
 
 /* Service component */

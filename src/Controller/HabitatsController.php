@@ -48,7 +48,7 @@ class HabitatsController extends AbstractController
             $imageFile = $form->get('imageFilename')->getData();
             if ($imageFile) {
                 try {
-                    $newFilename = $imageUploader->upload($imageFile);
+                    $newFilename = $imageUploader->uploadProd($imageFile);
                     $habitat->setImageFilename($newFilename);
                 } catch (\Exception $e) {
                     $errorMessage = $e->getMessage();
