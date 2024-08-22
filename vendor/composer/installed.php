@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'b16d46572205a01b2bcc0866479b2989a34cfc41',
+            'reference' => 'c28777c2bd0a0ab83ae074e8e94b32182949a581',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
