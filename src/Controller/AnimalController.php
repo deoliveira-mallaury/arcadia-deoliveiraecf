@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Race;
 use App\Entity\Animal;
+use App\Entity\Habitat;
 use App\Form\AnimalType;
 use App\Service\ImageUploader;
 use App\Repository\AnimalRepository;
@@ -117,5 +118,16 @@ class AnimalController extends AbstractController
         }
 
         return $this->redirectToRoute('app_animal_index', [], Response::HTTP_SEE_OTHER);
+    }
+           
+    #[Route('/{id}/card', name: 'app_animal_card', methods: ['GET'])]
+    public function card(Animal $animal): Response
+    {
+
+        // Render the animal card template with the given animal data
+        // dd($animal);
+        return $this->render('animal/animal_card.html.twig', [
+            'animal' => $animal,
+        ]);
     }
 }
