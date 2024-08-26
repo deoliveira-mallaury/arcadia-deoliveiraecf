@@ -13,39 +13,46 @@ body {
   font-family: "Indie Flower", cursive;
   color: #356d6e;
   max-height: 100vh;
-  /* Administrator component */
 }
-body .navbar {
+
+.navbar {
   border-radius: 0 0 20px 20px;
   background-color: #FBB996;
 }
-body .navbar .nav-link,
-body .navbar .navbar-brand,
-body .navbar .dropdown-toggle,
-body .navbar .navbar-toggler .nav-item {
+
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .dropdown-toggle,
+.navbar .navbar-toggler .nav-item {
   color: #356d6e !important;
   font-family: "Indie Flower", cursive;
   font-weight: bold;
   font-style: normal;
 }
-body .nav-admin {
+
+.nav-admin {
   color: inherit;
   /* Utilise la couleur héritée du parent */
   text-decoration: none;
 }
-body .navbar .active {
+
+.navbar .active {
   color: #FCF2E1;
 }
-body .administrator {
+
+/* Administrator component */
+.administrator {
   margin-top: 10vh;
   background-color: #FCF2E1;
 }
-body .administrator-dashboard {
+
+.administrator-dashboard {
   color: #356d6e;
   font-family: "Indie Flower", cursive;
   background-color: #FBB996;
 }
-body #content-area {
+
+#content-area {
   background-color: #FCF2E1;
 }
 
@@ -144,6 +151,21 @@ body #content-area {
 .bi {
   margin-left: -5%;
   font-variation-settings: "FILL" 0, "GRAD" 0;
+}
+
+.login {
+  margin-top: 10vh;
+}
+.login .input-icon {
+  position: absolute;
+  background-color: #356d6e;
+  color: #FCF2E1;
+  right: 0;
+  /* Adjust as needed */
+  height: 90%;
+  width: 15%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* Navbar component */
