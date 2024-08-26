@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Animal;
 use App\Entity\Habitat;
 use App\Form\HabitatType;
 use App\Service\ImageUploader;
@@ -19,6 +20,8 @@ class HabitatsController extends AbstractController
     {
         $habitatRepository = $entityManager->getRepository(Habitat::class);
         $habitats = $habitatRepository->findAll();
+
+        // $habitats = $habitatRepository->findByExampleField($id);
 
         return $this->render('habitat/index.html.twig', [
             'habitats' => $habitats,
