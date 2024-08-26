@@ -1,0 +1,84 @@
+{% block body %}
+	<div class="container mt-5 d-none d-sm-block d-md-none">
+		<div class="row">
+			<div class=" mb-4">
+
+				<div class="card animal-img my-2 mx-auto">
+					<div class="row g-0 align-items-center animal-mobile-pres-{{animal.habitat.name}} my-auto">
+						<div class="col-4 ">
+							<img src="{{ asset('uploads/images/' ~ animal.imageFilename) }}" class="img-fluid rounded-start" alt="...">
+						</div>
+						<div class="col-8">
+							<div class="card-body">
+								<h5 class="card-title">{{ animal.name }}</h5>
+								<p class="card-text">
+									Mammifère:
+									{{ animal.race.label }}<br>
+									Habitat:
+									{{ animal.habitat.name }}<br>
+									Taille:
+									{{ animal.size }}<br>
+									Hauteur:
+									{{ animal.height }}<br>
+									Nourriture proposée:
+									{{ animal.foodType }}<br>
+									Etat animal:
+									{{ animal.etat }}<br>
+									Avis vétérinaire:
+									{# {{ animal.veterinaryRepports }} #}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container mt-5 d-sm-none d-md-block">
+		<div class="row">
+			<div class=" mb-4">
+				<div class="row animal-card mx-auto rounded" id="animal-habitat-{{animal.habitat.name}}">
+					<h3 class="text-center">{{ animal.name }}</h3>
+					<div class="container view-animal d-flex flex-column view-animal align-items-center">
+						<img src="{{ asset('uploads/images/' ~ animal.imageFilename) }}" class="animal-img w-100 mx-auto" alt="..."/>
+						<span class="animal-pres text-center w-100">Mammifère:
+							{{ animal.race.label }}
+							-
+							{{ animal.habitat.name }}
+							-
+							{{ animal.size }}
+							-
+							{{ animal.height }}</span>
+					</div>
+					<div class="container animal-stat animal-stat-{{habitat.name}} mx-auto row col-11 m-2 justify-content-center rounded">
+						<div class="container row">
+							<i class="material-symbols-outlined col-1 my-auto">restaurant</i>
+							<p class="col-6 my-auto ms-2">Nourriture proposée :</p>
+							<p class="col-5 my-auto text-center">{{ animal.foodType }}</p>
+						</div>
+						<div class="container row">
+							<i class="material-symbols-outlined col-1 my-auto">scale</i>
+							<p class="col-6 my-auto ms-2">Nourriture donnée :</p>
+							<p class="col-5 my-auto text-center">{{ animal.foodQty }}</p>
+						</div>
+						<div class="container row">
+							<i class="bi bi-heart-fill col-1 my-auto"></i>
+							<p class="col-6 my-auto ms-1">Etat de l'animal:</p>
+							<p class="col-5 my-auto text-center">{{ animal.etat }}</p>
+						</div>
+						<div class="container row">
+							<i class="bi bi-calendar-date col-1 my-auto"></i>
+							<p class="col-6 my-auto ms-1">Date passage :</p>
+							<p class="col-5 my-auto text-center">{{ animal.etat }}</p>
+						</div>
+						<div class="container row">
+							<i class="bi bi-info-circle col-1 my-auto"></i>
+							<p class="col-6 my-auto ms-1">Détail état de l’animal :</p>
+							<p class="col-5 my-auto text-center">{{ animal.etat }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
