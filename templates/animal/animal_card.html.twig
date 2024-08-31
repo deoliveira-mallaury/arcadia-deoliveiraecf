@@ -6,12 +6,12 @@
 				<div class="card animal-img my-2 mx-auto">
 					<div class="row g-0 align-items-center animal-mobile-pres-{{animal.habitat.name}} my-auto">
 						<div class="col-4 ">
-							{% set base64Image = image.getDataImageBase64() %}
+							{# {% set base64Image = animal.image.getDataImageBase64() %}
 							{% if base64Image %}
 								<img src="data:image/jpeg;base64,{{ base64Image }}" class="card-img-top w-100 mx-auto" alt="..."/>
 							{% else %}
 								<p>Image non disponible</p>
-							{% endif %}
+							{% endif %} #}
 						</div>
 						<div class="col-8">
 							<div class="card-body">
@@ -45,12 +45,12 @@
 				<div class="row animal-card mx-auto rounded" id="animal-habitat-{{animal.habitat.name}}">
 					<h3 class="text-center">{{ animal.name }}</h3>
 					<div class="container view-animal d-flex flex-column view-animal align-items-center">
-						{% set base64Image = image.getDataImageBase64() %}
+						{# {% set base64Image = image.getDataImageBase64() %}
 						{% if base64Image %}
 							<img src="data:image/jpeg;base64,{{ base64Image }}" class="card-img-top w-100 mx-auto" alt="..."/>
 						{% else %}
 							<p>Image non disponible</p>
-						{% endif %}
+						{% endif %} #}
 						<span class="animal-pres text-center w-100">Mammifère:
 							{{ animal.race.label }}
 							-
