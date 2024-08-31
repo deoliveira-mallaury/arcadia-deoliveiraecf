@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Race;
+use App\Entity\Image;
 use App\Entity\Animal;
 use App\Form\AnimalType;
 use App\Service\ImageUploader;
@@ -33,7 +34,7 @@ class AnimalController extends AbstractController
     }
 
     #[Route('/administrator/animal', name: 'administrator_animal', methods: ['GET', 'POST'])]
-    public function new(Request $request, AnimalRepository $animalRepository, ImageUploader $imageUploader): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, AnimalRepository $animalRepository, ImageUploader $imageUploader): Response
     {
         $animal = new Animal();
         $form = $this->createForm(AnimalType::class, $animal);
@@ -51,11 +52,21 @@ class AnimalController extends AbstractController
                 $animal->setRace($newRace);
             }
 
-            $imageFile = $form->get('imageFilename')->getData();
+            $imageFile = $form->get('data_image')->getData();
             if ($imageFile) {
                 try {
-                    $newFilename = $imageUploader->upload($imageFile);
-                    $animal->setImageFilename($newFilename);
+                    // Read the file content
+                    $imageData = file_get_contents($imageFile->getPathname());
+
+                    // Create a new Image entity and set its data_image property
+                    $image = new Image();
+                    $image->setDataImage($imageData);
+
+                    // Add the Image entity to the Service
+                    $animal->addImage($image);
+
+                    // Persist the Image entity
+                    $entityManager->persist($image);
                 } catch (\Exception $e) {
                     $errorMessage = $e->getMessage();
                 }

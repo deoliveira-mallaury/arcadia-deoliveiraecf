@@ -33,7 +33,7 @@ class HabitatType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
-            ->add('imageFilename', FileType::class, [
+            ->add('data_image', FileType::class, [
                 'label' => 'Image (JPEG or PNG file)',
                 'mapped' => false,
                 'required' => false,
