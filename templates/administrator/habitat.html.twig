@@ -2,20 +2,32 @@
 {% extends 'administrator/dashboard.html.twig' %}
 
 {% block content %}
-<div class="container-fluid row align-items-center">
-	<turbo-frame id="show_habitat" turbo-visit-control="reload">
-		{{ include('habitat/index.html.twig', { habitats: habitats }) }}
-	</turbo-frame>
-	<div class="container-fluid new_habitat row align-items-center d-flex justify-content-center">
-		<form id="new-habitat-form" action="{{ path('administrator_habitat') }}" method="post" enctype="multipart/form-data" class="row align-items-center col-6 border border-dark">
-			{{ form_start(form, {'attr': {'class': ''}}) }}
-			{{ form_widget(form, {'attr': {'class': ''}}) }}
-			{% if errorMessage %}
-				<div id="error-message" style="color: red;">{{ errorMessage }}</div>
-			{% endif %}
-			<button id="add_habitat" class="btn">Enregistrer</button>
-			{{ form_end(form) }}
-		</form>
+	<div class="container-fluid row align-items-center">
+		<div class="container services min-vh-90" id="show_habitats">
+			<h1 class="text-center">Nos Habitats</h1>
+			<div class="d-flex flex-column align-items-center">
+				<div class="example-wrapper services row justify-content-center">
+					{% for habitat in habitats %}
+						<div class="card m-3 col-5 col-md-3">
+							<div class="card-body p-1">
+								<h5 class="card-title text-center mt-2">{{ habitat.name }}</h5>
+								<img src="{{ asset('uploads/images/' ~ habitat.imageFilename) }}" class="card-img-top w-100 mx-auto" alt="..."/>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid new_habitat row align-items-center d-flex justify-content-center">
+			<form id="new-habitat-form" action="{{ path('administrator_habitat') }}" method="post" enctype="multipart/form-data" class="row align-items-center col-6 border border-dark">
+				{{ form_start(form, {'attr': {'class': ''}}) }}
+				{{ form_widget(form, {'attr': {'class': ''}}) }}
+				{% if errorMessage %}
+					<div id="error-message" style="color: red;">{{ errorMessage }}</div>
+				{% endif %}
+				<button id="add_habitat" class="btn">Enregistrer</button>
+				{{ form_end(form) }}
+			</form>
+		</div>
 	</div>
-</div>
 {% endblock %}

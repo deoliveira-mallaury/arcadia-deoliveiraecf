@@ -15,11 +15,13 @@ Turbo.start();
 // ./ (or ../) means to look for a local file
 import loginformValidator from './controllers/loginformValidator.js';
 import administratorDashboard from './controllers/administratorDashboard.js';
+import animalHandler from './controllers/animalHandler.js';
 
 
 
 $(document).ready(function () {
     loginformValidator();
-    administratorDashboard()
+    administratorDashboard();
+    animalHandler();
     // $('body').prepend('<h1>' +  + '</h1>');
 });

@@ -22,7 +22,7 @@ class HabitatRepository extends ServiceEntityRepository
     //    public function findByExampleField($value): array
     //    {
     //        return $this->createQueryBuilder('h')
-    //            ->andWhere('h.exampleField = :val')
+    //            ->andWhere('h.animal = :val')
     //            ->setParameter('val', $value)
     //            ->orderBy('h.id', 'ASC')
     //            ->setMaxResults(10)

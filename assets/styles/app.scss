@@ -3,55 +3,13 @@
     font-weight: 400;
     font-style: normal;
   } */
-// body {
-//     background-color: #FCF2E1;
-//     font-family: "Indie Flower", cursive;
-//     color: #356d6e;
-// }
-
-// // Navbar component
-// .navbar {
-//     border-radius: 0 0 20px 20px;
-//     background-color: #FBB996;
-
-//     .nav-link,
-//     .navbar-brand,
-//     .dropdown-toggle,
-//     .navbar-toggler {
-//         color: #356d6e;
-//         font-family: "Indie Flower", cursive;
-//         font-weight: bold;
-//         font-style: normal;
-//     }
-
-//     .active {
-//         color: #FCF2E1;
-//     }
-// }
-
-
-
-// .administrator {
-//     margin-top: 10vh;
-
-//     #user-pannel {
-//         display: none;
-//     }
-
-//     .nav-link {
-//         color: #356d6e;
-//         font-weight: bold;
-//         font-style: normal;
-//     }
-// }
-/* Utilisez des classes spécifiques pour éviter les conflits */
 
 /* Utilisez des classes spécifiques pour éviter les conflits */
 body {
     background-color: #FCF2E1 !important;
     font-family: "Indie Flower", cursive;
     color: #356d6e;
-    min-height: 100vh;
+    max-height: 100vh;
 
 }
 
@@ -99,30 +57,106 @@ body {
     background-color: #FCF2E1;
 
 }
-// Homepage component
+
+// // Homepage component
 .homepage {
     margin-top: 10vh;
-    // .imgZoo{
-    //     max-width: 50vw;
-    // }
 }
 
 // Services component
 .services {
     margin-top: 10vh;
+}
 
+// // Contact component
+.contact {
+  margin-top: 10vh;
 }
 
 // Habitats component
 .habitats {
     margin-top: 10vh;
+}
+// Animal component
+.card-animal-container {
+    display: none;
+}
+
+.img-habitat {
+    width: 15vw;
+}
+
+.animal-card {
+    width: 400px;
+    height: auto;
+}
+
+#animal-habitat-Savane {
+    background-color: #ffd698;
+    border: thick double #FBB996;
+}
+
+.animal-mobile-pres-Savane {
+    background-color: #FBB996;
+    border: thick double #FBB996;
+}
+.animal-stat-Savane {
+    background-color: #FBB996;
+
+}
+#animal-habitat-Marais {
+    background-color: #6e4f9b;
+    border: thick double #512f59;
+}
+
+.animal-mobile-pres-Marais {
+    background-color: #ae9ec4;
+    border: thick double #512f59;
+}
+.animal-stat-Marais {
+    background-color: #ae9ec4;
+}
+#animal-habitat-Jungle {
+    background-color: #4e7f80;
+    border: thick double #356d6e;
+}
+
+.animal-mobile-pres-Jungle {
+    background-color: #b3c8c9;
+    border: thick double #356d6e;
+}
+.animal-stat-Jungle {
+    background-color: #b3c8c9;
+}
+.animal-img {
+    height: 32vh;
+    border-radius: 5% 5% 0 0;
+}
+
+.animal-pres,
+.animal-stat {
+    font-family: "Lato", sans-serif;
 
 }
 
-// Contact component
-.contact {
-    margin-top: 10vh;
+.animal-pres {
+    background-color: #c7c7ca;
+}
 
+.animal-stat {
+    height: 28vh;
+    width: 95%;
+    border: #FBB996 solid 1px;
+}
+
+.material-symbols-outlined,
+.bi {
+    margin-left: -5%;
+    font-variation-settings:
+        'FILL' 0,
+        // 'wght' 400,
+        'GRAD' 0,
+        // 'opsz' 24
 }
 
 // Login component
@@ -142,18 +176,3 @@ body {
         // pointer-events: none; /* Prevent click events on the icon */
     }
 }
-/* Navbar component */
-
-/* Service component */
-// .service-content {
-//     margin-top: 10vh;
-//     font-family: "Lato", sans-serif;
-//     color: #356d6e;
-//     background-color: #FCF2E1;
-
-// }
-
-// .service-content h2 {
-//     font-family: "Indie Flower", cursive;
-//     color: #356d6e;
-// }

@@ -21,6 +21,8 @@ class HabitatsController extends AbstractController
         $habitatRepository = $entityManager->getRepository(Habitat::class);
         $habitats = $habitatRepository->findAll();
 
+        // $habitats = $habitatRepository->findByExampleField($id);
+
         return $this->render('habitat/index.html.twig', [
             'habitats' => $habitats,
         ]);
