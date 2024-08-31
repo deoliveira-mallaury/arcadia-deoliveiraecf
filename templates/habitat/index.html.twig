@@ -11,7 +11,14 @@
 				{% for habitat in habitats %}
 					<div class="card m-3 col-5 col-md-3">
 						<div class="card-body p-1">
-							<img src="{{ asset('uploads/images/' ~ habitat.imageFilename) }}" class="card-img-top w-100 mx-auto" alt="..."/>
+							{% for image in habitat.images %}
+								{% set base64Image = image.getDataImageBase64() %}
+								{% if base64Image %}
+									<img src="data:image/jpeg;base64,{{ base64Image }}" class="card-img-top w-100 mx-auto" alt="..."/>
+								{% else %}
+									<p>Image non disponible</p>
+								{% endif %}
+							{% endfor %}
 							<h5 class="card-title text-center mt-2">{{ habitat.name }}</h5>
 						</div>
 					</div>
