@@ -23,7 +23,6 @@ class Habitat
 
     #[ORM\Column(length: 250)]
     private ?string $habitatComment = null;
-
    
     /**
      * @var Collection<int, Animal>
