@@ -11,50 +11,51 @@ body {
     color: #356d6e;
     max-height: 100vh;
 
-    .navbar {
-        border-radius: 0 0 20px 20px;
-        background-color: #FBB996;
-    }
+}
 
-    .navbar .nav-link,
-    .navbar .navbar-brand,
-    .navbar .dropdown-toggle,
-    .navbar .navbar-toggler .nav-item {
-        color: #356d6e !important;
-        font-family: "Indie Flower", cursive;
-        font-weight: bold;
-        font-style: normal;
-    }
+.navbar {
+    border-radius: 0 0 20px 20px;
+    background-color: #FBB996;
+}
 
-    .nav-admin {
-        color: inherit;
-        /* Utilise la couleur héritée du parent */
-        text-decoration: none;
-    }
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .dropdown-toggle,
+.navbar .navbar-toggler .nav-item {
+    color: #356d6e !important;
+    font-family: "Indie Flower", cursive;
+    font-weight: bold;
+    font-style: normal;
+}
 
-    .navbar .active {
-        color: #FCF2E1;
-    }
+.nav-admin {
+    color: inherit;
+    /* Utilise la couleur héritée du parent */
+    text-decoration: none;
+}
 
-    /* Administrator component */
-    .administrator {
-        margin-top: 10vh;
-        background-color: #FCF2E1;
+.navbar .active {
+    color: #FCF2E1;
+}
 
-    }
+/* Administrator component */
+.administrator {
+    margin-top: 10vh;
+    background-color: #FCF2E1;
 
-    .administrator-dashboard {
-        color: #356d6e;
-        font-family: "Indie Flower", cursive;
+}
 
-        background-color: #FBB996;
+.administrator-dashboard {
+    color: #356d6e;
+    font-family: "Indie Flower", cursive;
 
-    }
+    background-color: #FBB996;
 
-    #content-area {
-        background-color: #FCF2E1;
+}
 
-    }
+#content-area {
+    background-color: #FCF2E1;
+
 }
 
 // // Homepage component
@@ -62,23 +63,21 @@ body {
     margin-top: 10vh;
 }
 
-// // Services component
+// Services component
 .services {
     margin-top: 10vh;
-
 }
 
 // // Contact component
 .contact {
-    margin-top: 10vh;
-
+  margin-top: 10vh;
 }
 
-// // Habitats component
-.habitat {
+// Habitats component
+.habitats {
     margin-top: 10vh;
 }
-
+// Animal component
 .card-animal-container {
     display: none;
 }
@@ -160,18 +159,20 @@ body {
         // 'opsz' 24
 }
 
-/* Navbar component */
+// Login component
+.login {
+    margin-top: 10vh;
 
-/* Service component */
-// .service-content {
-//     margin-top: 10vh;
-//     font-family: "Lato", sans-serif;
-//     color: #356d6e;
-//     background-color: #FCF2E1;
-
-// }
-
-// .service-content h2 {
-//     font-family: "Indie Flower", cursive;
-//     color: #356d6e;
-// }
+    .input-icon {
+        position: absolute;
+        background-color: #356d6e;
+        color: #FCF2E1;
+        right: 0;
+        /* Adjust as needed */
+        height: 90%;
+        width: 15%;
+        top: 50%;
+        transform: translateY(-50%);
+        // pointer-events: none; /* Prevent click events on the icon */
+    }
+}

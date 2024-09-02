@@ -1,22 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ServicesController!{% endblock %}
+{% block title %}Hello ServicesController!
+{% endblock %}
 
 {% block body %}
-    <style></style>
-    <div class="container services min-vh-90" id="show_services">
-        <h1 class="text-center">Nos services</h1>
-        <div class="d-flex flex-column align-items-center">
-            <div class="example-wrapper services row justify-content-center">
-                {% for service in services %}
-                    <div class="card m-3 col-5 col-md-3">
-                        <div class="card-body p-1">
-                            <img src="{{ asset('uploads/images/' ~ service.imageFilename) }}" class="card-img-top w-100 mx-auto" alt="..."/>
-                            <h5 class="card-title text-center mt-2">{{ service.name }}</h5>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+	<style></style>
+	<div class="container services min-vh-90" id="show_services">
+		<h1 class="text-center">Nos services</h1>
+		<div class="d-flex flex-column align-items-center">
+			<div class="example-wrapper services row justify-content-center">
+				{% for service in services %}
+					<div class="card m-3 col-5 col-md-3">
+						<div class="card-body p-1">
+							{% for image in service.images %}
+								{% set base64Image = image.getDataImageBase64() %}
+								{% if base64Image %}
+									<img src="data:image/jpeg;base64,{{ base64Image }}" class="card-img-top w-100 mx-auto" alt="..."/>
+								{% else %}
+									<p>Image non disponible</p>
+								{% endif %}
+							{% endfor %}
+							<h5 class="card-title text-center mt-2">{{ service.name }}</h5>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 {% endblock %}

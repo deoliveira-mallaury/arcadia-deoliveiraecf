@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Service;
 use App\Form\ServiceType;
 use App\Service\ImageUploader;
@@ -19,7 +21,6 @@ class ServicesController extends AbstractController
     {
         $serviceRepository = $entityManager->getRepository(Service::class);
         $services = $serviceRepository->findAll();
-
         return $this->render('services/index.html.twig', [
             'services' => $services,
         ]);
@@ -37,13 +38,22 @@ class ServicesController extends AbstractController
 
         $errorMessage = '';
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile = $form->get('imageFilename')->getData();
+            $imageFile = $form->get('data_image')->getData();
             if ($imageFile) {
                 try {
-                    $newFilename = $imageUploader->upload($imageFile);
-                    $service->setImageFilename($newFilename);
+                    // Read the file content
+                    $imageData = file_get_contents($imageFile->getPathname());
+
+                    // Create a new Image entity and set its data_image property
+                    $image = new Image();
+                    $image->setDataImage($imageData);
+
+                    // Add the Image entity to the Service
+                    $service->addImage($image);
+
+                    // Persist the Image entity
+                    $entityManager->persist($image);
                 } catch (\Exception $e) {
                     $errorMessage = $e->getMessage();
                 }
@@ -55,6 +65,7 @@ class ServicesController extends AbstractController
                 $this->addFlash('success', 'Service added successfully!');
             }
         }
+
         return $this->render('administrator/service.html.twig', [
             'form' => $form->createView(),
             'services' => $services,
