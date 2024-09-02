@@ -70,24 +70,25 @@ body {
 
 // // Contact component
 .contact {
-  margin-top: 10vh;
+    margin-top: 10vh;
 }
 
 // Habitats component
-.habitats {
+.habitat {
     margin-top: 10vh;
 }
+
 // Animal component
-.card-animal-container {
-    display: none;
-}
+// .card-animal-container {
+//     display: none;
+// }
 
 .img-habitat {
     width: 15vw;
 }
 
 .animal-card {
-    width: 400px;
+    width: 30vw;
     height: auto;
 }
 
@@ -100,10 +101,12 @@ body {
     background-color: #FBB996;
     border: thick double #FBB996;
 }
+
 .animal-stat-Savane {
     background-color: #FBB996;
 
 }
+
 #animal-habitat-Marais {
     background-color: #6e4f9b;
     border: thick double #512f59;
@@ -113,9 +116,11 @@ body {
     background-color: #ae9ec4;
     border: thick double #512f59;
 }
+
 .animal-stat-Marais {
     background-color: #ae9ec4;
 }
+
 #animal-habitat-Jungle {
     background-color: #4e7f80;
     border: thick double #356d6e;
@@ -125,9 +130,11 @@ body {
     background-color: #b3c8c9;
     border: thick double #356d6e;
 }
+
 .animal-stat-Jungle {
     background-color: #b3c8c9;
 }
+
 .animal-img {
     height: 32vh;
     border-radius: 5% 5% 0 0;
