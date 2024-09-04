@@ -22,6 +22,9 @@ class Opinion
     #[ORM\Column]
     private ?bool $isVisible = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $rating = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Opinion
     public function setVisible(bool $isVisible): static
     {
         $this->isVisible = $isVisible;
+
+        return $this;
+    }
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(?int $rating): static
+    {
+        $this->rating = $rating;
 
         return $this;
     }

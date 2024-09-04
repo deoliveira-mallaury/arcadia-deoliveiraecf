@@ -1,0 +1,18 @@
+{% extends 'employee/dashboard.html.twig' %}
+
+{% block content %}
+	<div class="container-fluid row align-items-center">
+		<turbo-frame id="index_service" turbo-visit-control="reload">
+			{{ include('service/index.html.twig', { services: services }) }}
+		</turbo-frame>
+		<div class="container-fluid new_service mb-5 row" d-flex "">
+			<turbo-frame
+				id="show_service" turbo-visit-control="reload" class="col"><!-- Les détails de l'animal seront chargés ici -->
+			</turbo-frame>
+			<turbo-frame
+				id="edit_service" turbo-visit-control="reload" class="col"><!-- Le formulaire d'édition de l'animal sera chargé ici -->
+			</turbo-frame>
+			
+		</div>
+	</div>
+{% endblock %}

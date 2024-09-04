@@ -1,0 +1,8 @@
+{% extends 'employee/dashboard.html.twig' %}
+{% block content %}
+	<turbo-frame id="index_animal" turbo-visit-control="reload">
+		{{ include('animal/index.html.twig', { animals: animals }) }}
+	</turbo-frame>
+	<turbo-frame id="edit_animal" turbo-visit-control="reload"></turbo-frame>
+	<turbo-frame id="show_animal" turbo-visit-control="reload"></turbo-frame>
+{% endblock %}
