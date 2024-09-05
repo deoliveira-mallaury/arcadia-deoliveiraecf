@@ -14,7 +14,7 @@
 							{% for image in habitat.images %}
 								{% set base64Image = image.getDataImageBase64() %}
 								{% if base64Image %}
-									<img src="data:image/jpeg;base64,{{ base64Image }}" class="card-img-top w-100 mx-auto" alt="..."/>
+									<img src="data:image/jpeg;base64,{{ base64Image }}" id="habitat-{{habitat.name}}"  class="habitat-button img-habitat card-img-top w-100 mx-auto" alt="..."/>
 								{% else %}
 									<p>Image non disponible</p>
 								{% endif %}
