@@ -136,7 +136,7 @@ class AnimalController extends AbstractController
     {
 
         // Render the animal card template with the given animal data
-        dd($animal);
+        // dd($animal);
         return $this->render('animal/animal_card.html.twig', [
             'animal' => $animal,
         ]);
