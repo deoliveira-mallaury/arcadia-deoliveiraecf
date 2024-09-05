@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240831104053 extends AbstractMigration
+final class Version20240831120919 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -35,7 +35,10 @@ final class Version20240831104053 extends AbstractMigration
         $this->addSql('ALTER TABLE image_animal ADD CONSTRAINT FK_C5B67DD78E962C16 FOREIGN KEY (animal_id) REFERENCES animal (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE image_service ADD CONSTRAINT FK_748DCD0E3DA5256D FOREIGN KEY (image_id) REFERENCES image (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE image_service ADD CONSTRAINT FK_748DCD0EED5CA9E6 FOREIGN KEY (service_id) REFERENCES service (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE image ADD data_image BYTEA NOT NULL');
+        $this->addSql('ALTER TABLE animal DROP image_filename');
+        $this->addSql('ALTER TABLE habitat DROP image_filename');
+        $this->addSql('ALTER TABLE image RENAME COLUMN image_data TO data_image');
+        $this->addSql('ALTER TABLE service DROP image_filename');
     }
 
     public function down(Schema $schema): void
@@ -51,6 +54,9 @@ final class Version20240831104053 extends AbstractMigration
         $this->addSql('DROP TABLE image_habitat');
         $this->addSql('DROP TABLE image_animal');
         $this->addSql('DROP TABLE image_service');
-        $this->addSql('ALTER TABLE image DROP data_image');
+        $this->addSql('ALTER TABLE animal ADD image_filename VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE image RENAME COLUMN data_image TO image_data');
+        $this->addSql('ALTER TABLE habitat ADD image_filename VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE service ADD image_filename VARCHAR(255) NOT NULL');
     }
 }

@@ -6,7 +6,14 @@
 				<div class="card animal-img my-2 mx-auto">
 					<div class="row g-0 align-items-center animal-mobile-pres-{{animal.habitat.name}} my-auto">
 						<div class="col-4 ">
-							<img src="{{ asset('uploads/images/' ~ animal.imageFilename) }}" class="img-fluid rounded-start" alt="...">
+							{# {% for image in animal.images %}
+								{% set base64Image = image.getDataImageBase64() %}
+								{% if base64Image %}
+									<img src="data:image/jpeg;base64,{{ base64Image }}" class="card-img-top w-100 mx-auto" alt="..."/>
+								{% else %}
+									<p>Image non disponible</p>
+								{% endif %}
+							{% endfor %} #}
 						</div>
 						<div class="col-8">
 							<div class="card-body">
@@ -40,7 +47,16 @@
 				<div class="row animal-card mx-auto rounded" id="animal-habitat-{{animal.habitat.name}}">
 					<h3 class="text-center">{{ animal.name }}</h3>
 					<div class="container view-animal d-flex flex-column view-animal align-items-center">
-						<img src="{{ asset('uploads/images/' ~ animal.imageFilename) }}" class="animal-img w-100 mx-auto" alt="..."/>
+						{% for image in animal.images %}
+		
+
+							{% set base64Image = image.getDataImageBase64() %}
+							{% if base64Image %}
+								<img src="data:image/jpeg;base64,{{ base64Image }}" class="card-img-top w-100 mx-auto" alt="..."/>
+							{% else %}
+								<p>Image non disponible</p>
+							{% endif %}
+						{% endfor %}
 						<span class="animal-pres text-center w-100">Mammifère:
 							{{ animal.race.label }}
 							-
@@ -50,7 +66,7 @@
 							-
 							{{ animal.height }}</span>
 					</div>
-					<div class="container animal-stat animal-stat-{{habitat.name}} mx-auto row col-11 m-2 justify-content-center rounded">
+					<div class="container animal-stat animal-stat-{{animal.habitat.name}} mx-auto row col-11 m-2 justify-content-center rounded">
 						<div class="container row">
 							<i class="material-symbols-outlined col-1 my-auto">restaurant</i>
 							<p class="col-6 my-auto ms-2">Nourriture proposée :</p>
