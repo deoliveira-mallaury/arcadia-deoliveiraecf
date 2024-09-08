@@ -52,124 +52,51 @@
 		</div>
 
 		<div class="container-fluid row justify-content-evenly pt-4">
-			<div class="col-md-3 col-4">
-				<h5 class="text-center mt-2">Habitats disponibles</h5>
-				<div class="card m-1">
-					<img src="{{ asset('images/savane.jpg') }}" class="card-img-top d-none d-md-block" alt="...">
-					<p class="card-text text-center">Savane</p>
-				</div>
-				<div class="card m-1">
-					<img src="{{ asset('images/jungle.png') }}" class="card-img-top d-none d-md-block" alt="...">
-					<p class="card-text text-center">Jungle</p>
-				</div>
-				<div class="card m-1">
-					<img src="{{ asset('images/marais.jpg') }}" class="card-img-top d-none d-md-block" alt="...">
-					<p class="card-text text-center">Marais</p>
-				</div>
-			</div>
-			<div class="col-md-3 col-7">
-				<h5 class="text-center mt-2 ">Animaux</h5>
-				<div class="d-none d-md-block">
-					<div class="card m-1">
-						<img src="{{ asset('images/simba.jpg') }}" class="card-img-top" alt="...">
-						<p class="card-text">Simba</p>
-					</div>
-				</div>
-
-				<div id="carouselExampleControls" class="carousel slide d-block d-md-none" data-bs-ride="carousel">
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img src="{{ asset('images/imageZoo.jpg') }}" class="d-block w-100" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="{{ asset('images/imageZoo.jpg') }}" class="d-block w-100" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="{{ asset('images/imageZoo.jpg') }}" class="d-block w-100" alt="...">
-						</div>
-					</div>
-					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Previous</span>
-					</button>
-					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Next</span>
-					</button>
-				</div>
-
-			</div>
-			<div class="col-md-3 col-11 container-fluid row justify-content-evenly">
-				<h5 class="text-center mt-2">Services</h5>
-				<div class="card col-5 col-md-12 m-1">
-					<img src="{{ asset('images/restaurant.jpg') }}" class="card-img-top" alt="...">
-					<p class="card-text text-center">Restaurant</p>
-				</div>
-				<div class="card col-5 col-md-12 m-1">
-					<img src="{{ asset('images/visiteGuidee.jpg') }}" class="card-img-top" alt="...">
-					<p class="card-text text-center">
-						Visite zoo en petit train</p>
-				</div>
-				<div class="card col-6 col-md-12 m-1">
-					<img src="{{ asset('images/visiteTrain.jpg') }}" class="card-img-top" alt="...">
-					<p class="card-text text-center">Visite guidée</p>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<div class="container-fluid row justify-content-evenly">
-		<div class="avis-container row justify-content-evenly col-md-6 col-10">
-			<h5 class="text-center my-3">Avis</h5>
-			<div class="card col-5 mb-5 me-1">
-				<div class="card-body">
-
-					<i class="bi bi-star" id="toggleRange1"></i>
-					<i class="bi bi-star" id="toggleRange2"></i>
-					<i class="bi bi-star" id="toggleRange3"></i>
-					<i class="bi bi-star" id="toggleRange4"></i>
-					<i class="bi bi-star" id="toggleRange5"></i>
-					{# <i class="bi bi-star-fill"></i> #}
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-				</div>
-			</div>
-			<div class="card col-5 mb-5">
-				<div class="card-body">
-					<i class="bi bi-star" id="toggleRange1"></i>
-					<i class="bi bi-star" id="toggleRange2"></i>
-					<i class="bi bi-star" id="toggleRange3"></i>
-					<i class="bi bi-star" id="toggleRange4"></i>
-					<i class="bi bi-star" id="toggleRange5"></i>
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-				</div>
+			<div class="">
+				{{ include('habitat/index.html.twig', { habitats: habitats }) }}
 			</div>
 		</div>
-		<div class="avis-form-container col-md-6 col-10">
-			<h5 class="text-center my-3">Partagez votre avis</h5>
-			<form class="">
+		<div class="">
+			{{ include('services/index.html.twig', { services: services }) }}
+		</div>
+		<div class="container-fluid row justify-content-center">
+			<div class="avis-container row col-md-6 col-10 mx-auto">
+				<h5 class="text-center my-3">Avis</h5>
+				{% for opinion in opinions %}
+					{% if opinion.isVisible %}
+						<div class="card col-5 mb-5 me-1">
+							<div class="card-body">
+							<div id="rating-value" value="{{opinion.rating}}"></div>
+								<h5 class="card-title">{{opinion.pseudo}}</h5>
+								<p class="card-text">{{opinion.comment}}</p>
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+			<div class="avis-form-container col-md-6 col-10 mx-auto">
+				<h5 class="text-center my-3">Partagez votre avis</h5>
+				{{ form_start(form) }}
 				<div class="m-2 text-center">
-					<label for="exampleInputPseudo" class="form-label">Pseudonyme</label>
-					<input type="text" class="form-control w-75 mx-auto" id="exampleInputPassword1">
+					{{ form_label(form.pseudo, 'Pseudonyme') }}
+					<br/>
+					{{ form_widget(form.pseudo) }}
 				</div>
 				<div class="m-2 text-center">
-
-					<i class="bi bi-star" id="toggleRange1"></i>
-					<i class="bi bi-star" id="toggleRange2"></i>
-					<i class="bi bi-star" id="toggleRange3"></i>
-					<i class="bi bi-star" id="toggleRange4"></i>
-					<i class="bi bi-star" id="toggleRange5"></i>
+					<div id="rating-value"></div>
+					{{ form_widget(form.rating) }}
 				</div>
-
 				<div class="m-2 text-center">
-					<label class="text-center" for="floatingTextarea2">Comments</label>
-					<textarea class="form-control w-75 mx-auto" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+					{{ form_label(form.comment, 'Votre commentaire :') }}
+					<br/>
+					{{ form_widget(form.comment) }}
+					<br/>
 				</div>
 				<div class="d-grid gap-2 m-2 col-3 mx-auto">
-					<button type="submit" class="btn btn-primary text-center">Submit</button>
+					<button class="btn btn-primary text-center" type="submit">Envoyer</button>
 				</div>
-			</form>
+				{{ form_end(form) }}
+			</div>
 		</div>
-	</div>
-</div>{% endblock %}
+
+	{% endblock %}
