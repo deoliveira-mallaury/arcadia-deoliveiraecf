@@ -4,8 +4,6 @@
 
 {% block body %}
     <h1>Opinion</h1>
-	<turbo-frame id="show_opinion">
-
     <table class="table">
         <tbody>
             <tr>
@@ -24,6 +22,10 @@
                 <th>IsVisible</th>
                 <td>{{ opinion.isVisible ? 'Yes' : 'No' }}</td>
             </tr>
+            <tr>
+                <th>Rating</th>
+                <td>{{ opinion.rating }}</td>
+            </tr>
         </tbody>
     </table>
 
@@ -32,6 +34,4 @@
     <a href="{{ path('app_opinion_edit', {'id': opinion.id}) }}">edit</a>
 
     {{ include('opinion/_delete_form.html.twig') }}
-    	</turbo-frame>
-
 {% endblock %}

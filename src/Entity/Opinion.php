@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: OpinionRepository::class)]
 class Opinion
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -22,8 +23,13 @@ class Opinion
     #[ORM\Column]
     private ?bool $isVisible = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?int $rating = null;
+
+    public function __construct()
+    {
+        $this->isVisible = false; // Set default value
+    }
 
     public function getId(): ?int
     {
@@ -71,7 +77,7 @@ class Opinion
         return $this->rating;
     }
 
-    public function setRating(?int $rating): static
+    public function setRating(int $rating): static
     {
         $this->rating = $rating;
 

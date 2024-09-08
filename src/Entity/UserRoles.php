@@ -24,6 +24,10 @@ class UserRoles
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'role')]
     private Collection $users;
 
+    #[ORM\ManyToOne(inversedBy: 'userGroup')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?LogRepport $input = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -79,6 +83,18 @@ class UserRoles
                 $user->setRole(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getInput(): ?LogRepport
+    {
+        return $this->input;
+    }
+
+    public function setInput(?LogRepport $input): static
+    {
+        $this->input = $input;
 
         return $this;
     }

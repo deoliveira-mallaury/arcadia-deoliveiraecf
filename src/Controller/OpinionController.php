@@ -38,7 +38,7 @@ class OpinionController extends AbstractController
 
         return $this->render('opinion/new.html.twig', [
             'opinion' => $opinion,
-            'form' => $form,
+            'form' => $form->createView(), // Assurez-vous d'utiliser createView()
         ]);
     }
 
@@ -50,32 +50,27 @@ class OpinionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_opinion_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Opinion $opinion, EntityManagerInterface $entityManager): Response
+  #[Route('/{id}/edit/{isVisible}', name: 'app_opinion_edit', methods: ['GET', 'POST'])]
+    public function edit(EntityManagerInterface $entityManager,int $id, ?bool $isVisible = null, OpinionRepository $opinionRepository): Response
     {
-        $form = $this->createForm(OpinionType::class, $opinion);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        $opinion = $opinionRepository->find($id);
+        if ($opinion && $isVisible !== null) {
+            $opinion->setVisible($isVisible);
+            $entityManager->persist($opinion);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_opinion_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('opinion/edit.html.twig', [
-            'opinion' => $opinion,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('app_opinion_index');
     }
+
 
     #[Route('/{id}', name: 'app_opinion_delete', methods: ['POST'])]
     public function delete(Request $request, Opinion $opinion, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$opinion->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $opinion->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($opinion);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_opinion_index', [], Response::HTTP_SEE_OTHER);
     }
 }
