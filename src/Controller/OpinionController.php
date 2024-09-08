@@ -50,7 +50,7 @@ class OpinionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit/{isVisible}', name: 'app_opinion_edit', methods: ['GET', 'POST'])]
+  #[Route('/{id}/edit/{isVisible}', name: 'app_opinion_edit', methods: ['GET', 'POST'])]
     public function edit(EntityManagerInterface $entityManager,int $id, ?bool $isVisible = null, OpinionRepository $opinionRepository): Response
     {
         $opinion = $opinionRepository->find($id);
@@ -71,7 +71,6 @@ class OpinionController extends AbstractController
             $entityManager->remove($opinion);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_opinion_index', [], Response::HTTP_SEE_OTHER);
     }
 }

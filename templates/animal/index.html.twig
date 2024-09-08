@@ -47,8 +47,10 @@
 									</div>
 								</div>
 							</form>
-							<a href="{{ path('app_animal_show', {'id': animal.id}) }}" data-turbo-frame="show_animal">show</a>
-							<a href="{{ path('app_animal_edit', {'id': animal.id}) }}" data-turbo-frame="edit_animal">edit</a>
+							{# {% if is_granted('ROLE_ADMIN') %} #}
+								<a href="{{ path('app_animal_show', {'id': animal.id}) }}" data-turbo-frame="show_animal">show</a>
+								<a href="{{ path('app_animal_edit', {'id': animal.id}) }}" data-turbo-frame="edit_animal">edit</a>
+							{# {% endif %} #}
 						</td>
 					</tr>
 				{% else %}

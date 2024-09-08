@@ -28,56 +28,56 @@ class HabitatsController extends AbstractController
         ]);
     }
     
-    #[Route('/admin/habitat', name: 'administrator_habitat')]
-    public function new(EntityManagerInterface $entityManager, Request $request, ImageUploader $imageUploader, SluggerInterface $slugger): Response
-    {
-        $frameId = $request->headers->get('Turbo-Frame');
-        $habitatRepository = $entityManager->getRepository(Habitat::class);
-        $habitats = $habitatRepository->findAll();
-        $habitat = new Habitat();
+    // #[Route('/admin/habitat', name: 'administrator_habitat')]
+    // public function new(EntityManagerInterface $entityManager, Request $request, ImageUploader $imageUploader, SluggerInterface $slugger): Response
+    // {
+    //     $frameId = $request->headers->get('Turbo-Frame');
+    //     $habitatRepository = $entityManager->getRepository(Habitat::class);
+    //     $habitats = $habitatRepository->findAll();
+    //     $habitat = new Habitat();
 
-        $form = $this->createForm(HabitatType::class, $habitat);
-        $form->handleRequest($request);
-        $errorMessage = '';
+    //     $form = $this->createForm(HabitatType::class, $habitat);
+    //     $form->handleRequest($request);
+    //     $errorMessage = '';
 
-        if ($frameId === 'show_habitat') {
-            return $this->render('administrator/habitat.html.twig', [
-                'controller_name' => 'AdministratorController',
-                'habitats' => $habitats,
-            ]);
-        }   
+    //     if ($frameId === 'show_habitat') {
+    //         return $this->render('administrator/habitat.html.twig', [
+    //             'controller_name' => 'AdministratorController',
+    //             'habitats' => $habitats,
+    //         ]);
+    //     }   
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile = $form->get('data_image')->getData();
-            if ($imageFile) {
-                try {
-                    // Read the file content
-                    $imageData = file_get_contents($imageFile->getPathname());
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $imageFile = $form->get('data_image')->getData();
+    //         if ($imageFile) {
+    //             try {
+    //                 // Read the file content
+    //                 $imageData = file_get_contents($imageFile->getPathname());
 
-                    // Create a new Image entity and set its data_image property
-                    $image = new Image();
-                    $image->setDataImage($imageData);
+    //                 // Create a new Image entity and set its data_image property
+    //                 $image = new Image();
+    //                 $image->setDataImage($imageData);
 
-                    // Add the Image entity to the Service
-                    $habitat->addImage($image);
+    //                 // Add the Image entity to the Service
+    //                 $habitat->addImage($image);
 
-                    // Persist the Image entity
-                    $entityManager->persist($image);
-                } catch (\Exception $e) {
-                    $errorMessage = $e->getMessage();
-                }
-            }
-            if (empty($errorMessage)) {
-                $entityManager->persist($habitat);
-                $entityManager->flush();
-                $this->addFlash('success', 'Service added successfully!');
-            }
-        }
+    //                 // Persist the Image entity
+    //                 $entityManager->persist($image);
+    //             } catch (\Exception $e) {
+    //                 $errorMessage = $e->getMessage();
+    //             }
+    //         }
+    //         if (empty($errorMessage)) {
+    //             $entityManager->persist($habitat);
+    //             $entityManager->flush();
+    //             $this->addFlash('success', 'Service added successfully!');
+    //         }
+    //     }
 
-        return $this->render('administrator/habitat.html.twig', [
-            'form' => $form->createView(),
-            'habitats' => $habitats,
-            'errorMessage' => $errorMessage,
-        ]);
-    }
+    //     return $this->render('administrator/habitat.html.twig', [
+    //         'form' => $form->createView(),
+    //         'habitats' => $habitats,
+    //         'errorMessage' => $errorMessage,
+    //     ]);
+    // }
 }
