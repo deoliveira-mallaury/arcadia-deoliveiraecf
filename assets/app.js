@@ -9,6 +9,9 @@ import './styles/app.scss';
 // loads the jquery package from node_modules
 import $ from 'jquery';
 import * as Turbo from '@hotwired/turbo';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Rating from './components/Rating';
 Turbo.start();
 
 // import the function from greet.js (the .js extension is optional)
@@ -17,6 +20,8 @@ import loginformValidator from './controllers/loginformValidator.js';
 import administratorDashboard from './controllers/administratorDashboard.js';
 import animalHandler from './controllers/animalHandler.js';
 
+
+ReactDOM.render(<Rating />, document.getElementById('rating-value'));
 
 
 $(document).ready(function () {
