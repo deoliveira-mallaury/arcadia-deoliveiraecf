@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container-fluid row align-items-center">
 	<turbo-frame id="show_services" turbo-visit-control="reload">
-		{{ include('services/index.html.twig', { services: services }) }}
+		{{ include('service/index.html.twig', { services: services }) }}
 	</turbo-frame>
 	<div class="container-fluid new_service row align-items-center d-flex justify-content-center">
 		<form id="new-service-form" action="{{ path('administrator_service') }}" method="post" enctype="multipart/form-data" class="row align-items-center col-6 border border-dark">

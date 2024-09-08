@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Service
+{% endblock %}
+
+{% block body %}
+	<h1>Edit Service</h1>
+	<turbo-frame id="edit_service">
+
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button class="btn">{{ button_label|default('Update') }}</button>
+		{{ form_end(form) }}
+	</turbo-frame>
+	<a href="{{ path('app_service_index') }}">back to list</a>
+
+	{{ include('service/_delete_form.html.twig') }}
+{% endblock %}

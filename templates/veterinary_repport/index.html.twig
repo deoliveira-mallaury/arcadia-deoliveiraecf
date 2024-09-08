@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VeterinaryRepport index
+{% endblock %}
+
+{% block body %}
+	<div class="vet-index-repports">
+
+		<h1>VeterinaryRepport index</h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>nom animal</th>
+					<th>Date</th>
+					<th>Detail</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for veterinary_repport in veterinary_repports %}
+
+					<tr>
+						<td>{{ veterinary_repport.id }}</td>
+						<td>{{ veterinary_repport.date ? veterinary_repport.date|date('Y-m-d') : '' }}</td>
+						<td>{{ veterinary_repport.detail }}</td>
+						<td>
+							<a href="{{ path('app_veterinary_repport_show', {'id': veterinary_repport.id}) }}">show</a>
+							<a href="{{ path('app_veterinary_repport_edit', {'id': veterinary_repport.id}) }}">edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<a href="{{ path('app_veterinary_repport_new') }}">Create new</a>
+	</div>
+{% endblock %}
