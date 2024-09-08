@@ -1,0 +1,10 @@
+{% extends 'employee/dashboard.html.twig' %}
+{% block content %}
+
+	<div class="container-fluid row align-items-center">
+		<turbo-frame id="index_opinion" turbo-visit-control="reload">
+			{{ include('opinion/index.html.twig', { opinions: opinions }) }}
+		</turbo-frame>
+	
+	</div>
+{% endblock %}
