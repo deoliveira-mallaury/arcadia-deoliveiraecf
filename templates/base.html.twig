@@ -59,7 +59,7 @@
 
 									{% if app.user.role.getId()== 2%}
 										<li>
-											<a class="dropdown-item nav-link {{ app.request.get('_route') == 'app_veterinarian' ? 'active' : '' }}" href="{{ path('app_veterinarian') }}">Dashboard</a>
+											<a class="dropdown-item nav-link {{ app.request.get('_route') == 'app_vet_dashboard' ? 'active' : '' }}" href="{{ path('app_vet_dashboard') }}">Dashboard</a>
 										</li>
 									{% endif %}
 

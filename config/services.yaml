@@ -5,7 +5,6 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     app.database_url: '%env(DATABASE_URL)%'
-    images_directory: '%kernel.project_dir%/public/uploads/images'
 
 services:
 
@@ -22,6 +21,6 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-    App\Service\ImageUploader:
-        arguments:
-            $targetDirectory: '%images_directory%'
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
