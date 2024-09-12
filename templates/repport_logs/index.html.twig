@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RepportLogs index
+{% endblock %}
+
+{% block body %}
+	<h1>RepportLogs index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Date</th>
+				<th>Modified_field</th>
+				<th>New_value</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for repport_log in repport_logs %}
+				<tr>
+					<td>{{ repport_log.id }}</td>
+					<td>{{ repport_log.date ? repport_log.date|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ repport_log.modifiedField }}</td>
+					<td>{{ repport_log.newValue }}</td>
+					<td>
+						<a href="{{ path('app_repport_logs_show', {'id': repport_log.id}) }}">show</a>
+						<a href="{{ path('app_repport_logs_edit', {'id': repport_log.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_repport_logs_new') }}">Create new</a>
+{% endblock %}

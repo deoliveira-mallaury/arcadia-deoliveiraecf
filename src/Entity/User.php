@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -42,8 +44,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?UserRoles $role = null;
 
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?VeterinaryRepport $vet_repport = null;
+    /**
+     * @var Collection<int, RepportLogs>
+     */
+    #[ORM\OneToMany(targetEntity: RepportLogs::class, mappedBy: 'modifiedBy')]
+    private Collection $repportLogs;
+
+    public function __construct()
+    {
+        $this->repportLogs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,7 +100,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->getRoles();
         $roles[] = $role;
-        $this->roles = $roles;
+        $this->roles = array_unique($roles);
         return $this;
     }
 
@@ -154,14 +164,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getVetRepport(): ?VeterinaryRepport
+    public function getRepportLogs(): Collection
     {
-        return $this->vet_repport;
+        return $this->repportLogs;
     }
 
-    public function setVetRepport(?VeterinaryRepport $vet_repport): static
+    public function setRepportLogs(Collection $repportLogs): static
     {
-        $this->vet_repport = $vet_repport;
+        $this->repportLogs = $repportLogs;
+
+        return $this;
+    }
+
+    public function addRepportLog(RepportLogs $repportLog): static
+    {
+        if (!$this->repportLogs->contains($repportLog)) {
+            $this->repportLogs[] = $repportLog;
+            $repportLog->setModifiedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepportLog(RepportLogs $repportLog): static
+    {
+        if ($this->repportLogs->removeElement($repportLog)) {
+            // set the owning side to null (unless already changed)
+            if ($repportLog->getModifiedBy() === $this) {
+                $repportLog->setModifiedBy(null);
+            }
+        }
 
         return $this;
     }
