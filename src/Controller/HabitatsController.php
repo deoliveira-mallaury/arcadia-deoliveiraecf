@@ -13,9 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[Route('/habitats')]
 class HabitatsController extends AbstractController
 {
-    #[Route('/habitats', name: 'app_habitats')]
+    #[Route('/', name: 'app_habitats')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $habitatRepository = $entityManager->getRepository(Habitat::class);
@@ -27,57 +28,51 @@ class HabitatsController extends AbstractController
             'habitats' => $habitats,
         ]);
     }
-    
-    // #[Route('/admin/habitat', name: 'administrator_habitat')]
-    // public function new(EntityManagerInterface $entityManager, Request $request, ImageUploader $imageUploader, SluggerInterface $slugger): Response
-    // {
-    //     $frameId = $request->headers->get('Turbo-Frame');
-    //     $habitatRepository = $entityManager->getRepository(Habitat::class);
-    //     $habitats = $habitatRepository->findAll();
-    //     $habitat = new Habitat();
 
-    //     $form = $this->createForm(HabitatType::class, $habitat);
-    //     $form->handleRequest($request);
-    //     $errorMessage = '';
+    #[Route('/administrator/new', name: 'administrator_habitat')]
+    public function new(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $frameId = $request->headers->get('Turbo-Frame');
+        $habitatRepository = $entityManager->getRepository(Habitat::class);
+        $habitats = $habitatRepository->findAll();
+        $habitat = new Habitat();
 
-    //     if ($frameId === 'show_habitat') {
-    //         return $this->render('administrator/habitat.html.twig', [
-    //             'controller_name' => 'AdministratorController',
-    //             'habitats' => $habitats,
-    //         ]);
-    //     }   
+        $form = $this->createForm(HabitatType::class, $habitat);
+        $form->handleRequest($request);
+        $errorMessage = '';
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $imageFile = $form->get('data_image')->getData();
-    //         if ($imageFile) {
-    //             try {
-    //                 // Read the file content
-    //                 $imageData = file_get_contents($imageFile->getPathname());
 
-    //                 // Create a new Image entity and set its data_image property
-    //                 $image = new Image();
-    //                 $image->setDataImage($imageData);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('data_image')->getData();
+            if ($imageFile) {
+                try {
+                    // Read the file content
+                    $imageData = file_get_contents($imageFile->getPathname());
 
-    //                 // Add the Image entity to the Service
-    //                 $habitat->addImage($image);
+                    // Create a new Image entity and set its data_image property
+                    $image = new Image();
+                    $image->setDataImage($imageData);
 
-    //                 // Persist the Image entity
-    //                 $entityManager->persist($image);
-    //             } catch (\Exception $e) {
-    //                 $errorMessage = $e->getMessage();
-    //             }
-    //         }
-    //         if (empty($errorMessage)) {
-    //             $entityManager->persist($habitat);
-    //             $entityManager->flush();
-    //             $this->addFlash('success', 'Service added successfully!');
-    //         }
-    //     }
+                    // Add the Image entity to the Service
+                    $habitat->addImage($image);
 
-    //     return $this->render('administrator/habitat.html.twig', [
-    //         'form' => $form->createView(),
-    //         'habitats' => $habitats,
-    //         'errorMessage' => $errorMessage,
-    //     ]);
-    // }
+                    // Persist the Image entity
+                    $entityManager->persist($image);
+                } catch (\Exception $e) {
+                    $errorMessage = $e->getMessage();
+                }
+            }
+            if (empty($errorMessage)) {
+                $entityManager->persist($habitat);
+                $entityManager->flush();
+                $this->addFlash('success', 'Service added successfully!');
+            }
+        }
+
+        return $this->render('administrator/habitat.html.twig', [
+            'form' => $form->createView(),
+            'habitats' => $habitats,
+            'errorMessage' => $errorMessage,
+        ]);
+    }
 }
