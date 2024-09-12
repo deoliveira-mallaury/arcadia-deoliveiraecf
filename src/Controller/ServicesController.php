@@ -5,13 +5,10 @@ namespace App\Controller;
 use App\Entity\Image;
 use App\Entity\Service;
 use App\Form\ServiceType;
-use App\Service\ImageUploader;
-use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ServicesController extends AbstractController
@@ -27,7 +24,7 @@ class ServicesController extends AbstractController
     }
 
     #[Route('/administrator/service', name: 'administrator_service')]
-    public function service(Request $request, ImageUploader $imageUploader, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function service(Request $request, EntityManagerInterface $entityManager): Response
     {
         $serviceRepository = $entityManager->getRepository(Service::class);
         $services = $serviceRepository->findAll();

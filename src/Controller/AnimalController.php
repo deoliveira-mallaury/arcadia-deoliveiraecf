@@ -34,8 +34,8 @@ class AnimalController extends AbstractController
         ]);
     }
 
-    #[Route('/administrator/animal', name: 'administrator_animal', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, AnimalRepository $animalRepository, ImageUploader $imageUploader): Response
+    #[Route('/new', name: 'administrator_animal', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, AnimalRepository $animalRepository): Response
     {
         $animal = new Animal();
         $form = $this->createForm(AnimalType::class, $animal);

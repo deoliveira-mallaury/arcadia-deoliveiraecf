@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Service;
 use App\Form\ServiceType;
 use App\Form\Service1Type;
@@ -26,20 +27,47 @@ class ServiceController extends AbstractController
     #[Route('/new', name: 'app_service_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $serviceRepository = $entityManager->getRepository(Service::class);
+        $services = $serviceRepository->findAll();
         $service = new Service();
+
         $form = $this->createForm(ServiceType::class, $service);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($service);
-            $entityManager->flush();
+        $errorMessage = '';
 
-            return $this->redirectToRoute('app_service_index', [], Response::HTTP_SEE_OTHER);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('data_image')->getData();
+            if ($imageFile) {
+                try {
+                    // Read the file content
+                    $imageData = file_get_contents($imageFile->getPathname());
+
+                    // Create a new Image entity and set its data_image property
+                    $image = new Image();
+                    $image->setDataImage($imageData);
+
+                    // Add the Image entity to the Service
+                    $service->addImage($image);
+
+                    // Persist the Image entity
+                    $entityManager->persist($image);
+                } catch (\Exception $e) {
+                    $errorMessage = $e->getMessage();
+                }
+            }
+
+            if (empty($errorMessage)) {
+                $entityManager->persist($service);
+                $entityManager->flush();
+                $this->addFlash('success', 'Service added successfully!');
+            }
         }
 
-        return $this->render('service/new.html.twig', [
-            'service' => $service,
-            'form' => $form,
+        return $this->render('administrator/service.html.twig', [
+            'form' => $form->createView(),
+            'services' => $services,
+            'errorMessage' => $errorMessage,
         ]);
     }
 
@@ -72,7 +100,7 @@ class ServiceController extends AbstractController
     #[Route('/{id}', name: 'app_service_delete', methods: ['POST'])]
     public function delete(Request $request, Service $service, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$service->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $service->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($service);
             $entityManager->flush();
         }
