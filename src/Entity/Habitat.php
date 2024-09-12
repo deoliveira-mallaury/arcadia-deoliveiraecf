@@ -36,6 +36,9 @@ class Habitat
     #[ORM\ManyToMany(targetEntity: Image::class, mappedBy: 'habitat')]
     private Collection $images;
 
+    #[ORM\ManyToOne(inversedBy: 'habitats')]
+    private ?RepportLogs $repport_log = null;
+
 
     public function __construct()
     {
@@ -138,6 +141,18 @@ class Habitat
         if ($this->images->removeElement($image)) {
             $image->removeHabitat($this);
         }
+
+        return $this;
+    }
+
+    public function getRepportLog(): ?RepportLogs
+    {
+        return $this->repport_log;
+    }
+
+    public function setRepportLog(?RepportLogs $repport_log): static
+    {
+        $this->repport_log = $repport_log;
 
         return $this;
     }

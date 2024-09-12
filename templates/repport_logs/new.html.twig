@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New RepportLogs
+{% endblock %}
+
+{% block body %}
+	<h1>Create new RepportLogs</h1>
+	<turbo-frame
+		id="new_repport_log" turbo-visit-control="reload" class="col">
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button class="btn">{{ button_label|default('Save') }}</button>
+		{{ form_end(form) }}
+	</turbo-frame>
+
+	<a href="{{ path('app_repport_logs_index') }}">back to list</a>
+{% endblock %}

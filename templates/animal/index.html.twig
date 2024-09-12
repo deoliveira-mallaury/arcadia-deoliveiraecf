@@ -4,10 +4,8 @@
 {% endblock %}
 
 {% block body %}
-
 	<h1>Animal index</h1>
 	<turbo-frame id="index_animal">
-
 		<table class="table">
 			<thead>
 				<tr>
@@ -15,6 +13,9 @@
 					<th>Condition</th>
 					<th>Race</th>
 					<th>Type de nourriture</th>
+					<th>Quantité de nourriture</th>
+					<th>Taille</th>
+					<th>Poid</th>
 					<th>Habitats</th>
 				</tr>
 			</thead>
@@ -23,12 +24,14 @@
 					<tr>
 						<td>{{ animal.name }}</td>
 						<td>{{ animal.etat }}</td>
-						<td>{{ animal.race.label}}</td>
-						<td>{{ animal.foodType}}</td>
-						<td>{{ animal.habitat.name}}</td>
+						<td>{{ animal.race.label }}</td>
+						<td>{{ animal.foodType }}</td>
+						<td>{{ animal.foodQty }}</td>
+						<td>{{ animal.size }}</td>
+						<td>{{ animal.height }}</td>
+						<td>{{ animal.habitat.name }}</td>
 						<td>
 							<form id="delete-form-{{ animal.id }}" method="post" action="{{ path('app_animal_delete', {'id': animal.id}) }}" style="display: inline;">
-
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ animal.id) }}">
 								<i class="bi bi-trash-fill float-end" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ animal.id }}"></i>
 								<!-- Modal -->
@@ -47,10 +50,11 @@
 									</div>
 								</div>
 							</form>
-							{# {% if is_granted('ROLE_ADMIN') %} #}
+							{% if is_granted('ROLE_ADMIN') %}
 								<a href="{{ path('app_animal_show', {'id': animal.id}) }}" data-turbo-frame="show_animal">show</a>
 								<a href="{{ path('app_animal_edit', {'id': animal.id}) }}" data-turbo-frame="edit_animal">edit</a>
-							{# {% endif %} #}
+							{% endif %}
+							<a href="{{ path('employee_health_new', {'animalId': animal.id}) }}" data-turbo-frame="new_repport_log">Changer information</a>
 						</td>
 					</tr>
 				{% else %}
@@ -61,4 +65,5 @@
 			</tbody>
 		</table>
 	</turbo-frame>
+	<turbo-frame id="new_repport_log" turbo-visit-control="reload" class="col"><!-- Le formulaire d'édition de l'animal sera chargé ici --></turbo-frame>
 {% endblock %}
