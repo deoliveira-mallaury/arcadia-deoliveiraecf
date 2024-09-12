@@ -32,11 +32,6 @@ class Animal
 
     #[ORM\Column(length: 50)]
     private ?string $size = null;
-    /**
-     * @var Collection<int, VeterinaryRepport>
-     */
-    #[ORM\OneToMany(targetEntity: VeterinaryRepport::class, mappedBy: 'animal')]
-    private Collection $veterinaryRepports;
 
     #[ORM\ManyToOne(inversedBy: 'animals')]
     #[ORM\JoinColumn(nullable: false)]
@@ -52,9 +47,11 @@ class Animal
     #[ORM\ManyToMany(targetEntity: Image::class, mappedBy: 'animal')]
     private Collection $images;
 
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    private ?RepportLogs $repport_log = null;
+
     public function __construct()
     {
-        $this->veterinaryRepports = new ArrayCollection();
         $this->images = new ArrayCollection();
     }
 
@@ -135,36 +132,7 @@ class Animal
         return $this;
     }
 
-    /**
-     * @return Collection<int, VeterinaryRepport>
-     */
-    public function getVeterinaryRepports(): Collection
-    {
-        return $this->veterinaryRepports;
-    }
-
-    public function addVeterinaryRepport(VeterinaryRepport $veterinaryRepport): static
-    {
-        if (!$this->veterinaryRepports->contains($veterinaryRepport)) {
-            $this->veterinaryRepports->add($veterinaryRepport);
-            $veterinaryRepport->setAnimal($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVeterinaryRepport(VeterinaryRepport $veterinaryRepport): static
-    {
-        if ($this->veterinaryRepports->removeElement($veterinaryRepport)) {
-            // set the owning side to null (unless already changed)
-            if ($veterinaryRepport->getAnimal() === $this) {
-                $veterinaryRepport->setAnimal(null);
-            }
-        }
-
-        return $this;
-    }
-
+    
     public function getRace(): ?Race
     {
         return $this->race;
@@ -212,6 +180,18 @@ class Animal
         if ($this->images->removeElement($image)) {
             $image->removeAnimal($this);
         }
+
+        return $this;
+    }
+
+    public function getRepportLog(): ?RepportLogs
+    {
+        return $this->repport_log;
+    }
+
+    public function setRepportLog(?RepportLogs $repport_log): static
+    {
+        $this->repport_log = $repport_log;
 
         return $this;
     }
