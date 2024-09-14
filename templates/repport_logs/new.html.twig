@@ -5,9 +5,8 @@
 
 {% block body %}
 	<h1>Create new RepportLogs</h1>
-	<turbo-frame
-		id="new_repport_log" turbo-visit-control="reload" class="col">
-		{{ form_start(form) }}
+	<turbo-frame id="new_repport_log" turbo-visit-control="reload" class="col">
+		{{ form_start(form, {'attr': {'id': 'myForm'}}) }}
 		{{ form_widget(form) }}
 		<button class="btn">{{ button_label|default('Save') }}</button>
 		{{ form_end(form) }}

@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\RepportLogs;
+use App\Form\RepportLogsType;
+use App\Service\ReportService;
+use App\Repository\UserRepository;
 use App\Repository\AnimalRepository;
 use App\Repository\OpinionRepository;
 use App\Repository\ServiceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RepportLogsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +23,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_EMPLOYEE')]
 class EmployeeController extends AbstractController
 {
+    private $reportService;
+    private $entityManager;
+    private $userRepository;
+
+    public function __construct(ReportService $reportService, EntityManagerInterface $entityManager, UserRepository $userRepository)
+    {
+        $this->reportService = $reportService;
+        $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
+    }
+
     #[Route('/employee', name: 'app_employee_dashboard')]
     public function index(): Response
     {
@@ -51,28 +67,29 @@ class EmployeeController extends AbstractController
             'opinions' => $opinions,
         ]);
     }
-    #[Route('/employee/health', name: 'employee_health')]
-    public function health(AnimalRepository $animalRepository, RepportLogsRepository $repportLogsRepository): Response
+    #[Route('/health', name: 'employee_health')]
+    public function health(Request $request, AnimalRepository $animalRepository, RepportLogsRepository $repportLogsRepository): Response
     {
         $animals = $animalRepository->findAll();
         $vetRepports = $repportLogsRepository->findAll();
+
+        $repportLog = new RepportLogs();
+        $form = $this->createForm(RepportLogsType::class, $repportLog);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userId = $this->getUser()->getId();
+            $this->reportService->newRepportLogs($request, $this->entityManager, $this->userRepository, $userId, $repportLog);
+
+            return $this->redirectToRoute('app_repport_logs_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('employee/health.html.twig', [
             'controller_name' => 'EmployeeController',
             'animals' => $animals,
             'vetRepports' => $vetRepports,
+            'form' => $form->createView(),
         ]);
     }
-    #[Route('/employee/health/new/{animalId}', name: 'employee_health_new')]
-    public function newHealthReport(int $animalId, AnimalRepository $animalRepository, RepportLogsRepository $repportLogsRepository): Response
-    {
-        $animal = $animalRepository->find($animalId);
-
-        if (!$animal) {
-            throw $this->createNotFoundException('Animal not found');
-        }
-
-        $repportLog = $repportLogsRepository->createLogForAnimal($animal);
-
-        return $this->redirectToRoute('app_repport_logs_index', [], Response::HTTP_SEE_OTHER);
-    }
+    
 }

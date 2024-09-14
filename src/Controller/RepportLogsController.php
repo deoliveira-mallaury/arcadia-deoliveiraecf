@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Animal;
 use App\Entity\RepportLogs;
 use App\Form\RepportLogsType;
 use App\Repository\UserRepository;
@@ -31,26 +32,45 @@ final class RepportLogsController extends AbstractController
         $repportLog = new RepportLogs();
         $userId = $this->getUser()->getId();
         $user = $userRepository->find($userId);
-
+    
+        // Handle JSON request
+        if ($request->isMethod('POST')) {
+            $data = json_decode($request->getContent(), true);
+            $animalId = $data['animalId'] ?? null;
+    
+            // Debugging: Check received animalId
+            if ($animalId) {
+                // Process the animalId as needed
+                // For example, find the animal entity and associate it with the report log
+                $animal = $entityManager->getRepository(Animal::class)->find($animalId);
+                if ($animal) {
+                    $repportLog->addAnimal($animal);
+                }
+            }
+        }
+    
         $form = $this->createForm(RepportLogsType::class, $repportLog);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Debugging: Check form data
             $user->addRepportLog($repportLog);
-
+    
             $entityManager->persist($repportLog);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_repport_logs_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         // Debugging: Check if form is submitted
-
+    
         return $this->render('repport_logs/new.html.twig', [
             'repport_log' => $repportLog,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
+    
+
+
 
 
     #[Route('/{id}', name: 'app_repport_logs_show', methods: ['GET'])]

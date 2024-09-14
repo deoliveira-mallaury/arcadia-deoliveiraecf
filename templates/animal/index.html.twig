@@ -54,7 +54,7 @@
 								<a href="{{ path('app_animal_show', {'id': animal.id}) }}" data-turbo-frame="show_animal">show</a>
 								<a href="{{ path('app_animal_edit', {'id': animal.id}) }}" data-turbo-frame="edit_animal">edit</a>
 							{% endif %}
-							<a href="{{ path('employee_health_new', {'animalId': animal.id}) }}" data-turbo-frame="new_repport_log">Changer information</a>
+							<a href="{{ path('app_repport_logs_new', {'animalId': animal.id}) }}" class="test" id="{{animal.id}}" data-turbo-frame="new_repport_log">Changer information</a>
 						</td>
 					</tr>
 				{% else %}
