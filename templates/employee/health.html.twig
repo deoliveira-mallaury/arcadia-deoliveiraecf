@@ -3,6 +3,14 @@
 	<turbo-frame id="index_animal" turbo-visit-control="reload">
 		{{ include('animal/index.html.twig', { animals: animals }) }}
 	</turbo-frame>
-	<turbo-frame id="edit_animal" turbo-visit-control="reload"></turbo-frame>
-	<turbo-frame id="show_animal" turbo-visit-control="reload"></turbo-frame>
+
+
+	<div
+		id="content-container">
+		<!-- Content will be loaded here by AJAX -->
+		{% include 'employee/_content.html.twig' %}
+	</div>
+	<turbo-frame id="new_repport_log" turbo-visit-control="reload" class="col"><!-- Le formulaire d'édition de l'animal sera chargé ici --></turbo-frame>
+	<script src="{{ asset('build/app.js') }}"></script>
+
 {% endblock %}

@@ -24,29 +24,20 @@ class RepportLogs
     #[ORM\JoinColumn(nullable: false)]
     private ?User $modifiedBy = null;
 
+    #[ORM\ManyToOne(targetEntity: Animal::class, inversedBy: 'repportLogs')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Animal $modifiedAnimal = null;
+
+    #[ORM\ManyToOne(targetEntity: Habitat::class, inversedBy: 'repportLogs')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Habitat $modifiedHabitat = null;
+
     #[ORM\Column(length: 255)]
     private ?string $modified_field = null;
 
     #[ORM\Column(length: 255)]
     private ?string $new_value = null;
 
-    /**
-     * @var Collection<int, Animal>
-     */
-    #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'repport_log')]
-    private Collection $animals;
-
-    /**
-     * @var Collection<int, Habitat>
-     */
-    #[ORM\OneToMany(targetEntity: Habitat::class, mappedBy: 'repport_log')]
-    private Collection $habitats;
-
-    public function __construct()
-    {
-        $this->animals = new ArrayCollection();
-        $this->habitats = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -77,6 +68,30 @@ class RepportLogs
         return $this;
     }
 
+    public function getModifiedAnimal(): ?Animal
+    {
+        return $this->modifiedAnimal;
+    }
+
+    public function setModifiedAnimal(?Animal $modifiedAnimal): static
+    {
+        $this->modifiedAnimal = $modifiedAnimal;
+
+        return $this;
+    }
+    
+    public function getModifiedHabitat(): ?Habitat
+    {
+        return $this->modifiedHabitat;
+    }
+
+    public function setModifiedHabitat(?Habitat $modifiedHabitat): static
+    {
+        $this->modifiedHabitat = $modifiedHabitat;
+
+        return $this;
+    }
+
     public function getModifiedField(): ?string
     {
         return $this->modified_field;
@@ -101,63 +116,4 @@ class RepportLogs
         return $this;
     }
 
-    /**
-     * @return Collection<int, Animal>
-     */
-    public function getAnimals(): Collection
-    {
-        return $this->animals;
-    }
-
-    public function addAnimal(Animal $animal): static
-    {
-        if (!$this->animals->contains($animal)) {
-            $this->animals->add($animal);
-            $animal->setRepportLog($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAnimal(Animal $animal): static
-    {
-        if ($this->animals->removeElement($animal)) {
-            // set the owning side to null (unless already changed)
-            if ($animal->getRepportLog() === $this) {
-                $animal->setRepportLog(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Habitat>
-     */
-    public function getHabitats(): Collection
-    {
-        return $this->habitats;
-    }
-
-    public function addHabitat(Habitat $habitat): static
-    {
-        if (!$this->habitats->contains($habitat)) {
-            $this->habitats->add($habitat);
-            $habitat->setRepportLog($this);
-        }
-
-        return $this;
-    }
-
-    public function removeHabitat(Habitat $habitat): static
-    {
-        if ($this->habitats->removeElement($habitat)) {
-            // set the owning side to null (unless already changed)
-            if ($habitat->getRepportLog() === $this) {
-                $habitat->setRepportLog(null);
-            }
-        }
-
-        return $this;
-    }
 }

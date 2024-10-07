@@ -7,6 +7,7 @@ use App\Form\RepportLogsType;
 use App\Service\ReportService;
 use App\Repository\UserRepository;
 use App\Repository\AnimalRepository;
+use App\Repository\HabitatRepository;
 use App\Repository\OpinionRepository;
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +15,7 @@ use App\Repository\RepportLogsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -67,29 +69,41 @@ class EmployeeController extends AbstractController
             'opinions' => $opinions,
         ]);
     }
-    #[Route('/health', name: 'employee_health')]
-    public function health(Request $request, AnimalRepository $animalRepository, RepportLogsRepository $repportLogsRepository): Response
+    #[Route('/health', name: 'employee_health', methods: ['GET', 'POST'])]
+    public function health(Request $request, AnimalRepository $animalRepository, HabitatRepository $habitatRepository, RepportLogsRepository $repportLogsRepository): Response
     {
         $animals = $animalRepository->findAll();
-        $vetRepports = $repportLogsRepository->findAll();
+        $repportLog = $repportLogsRepository->findAll();
+        $habitats = $habitatRepository->findAll();
 
-        $repportLog = new RepportLogs();
-        $form = $this->createForm(RepportLogsType::class, $repportLog);
-        $form->handleRequest($request);
+        $form = $this->createForm(RepportLogsType::class, $repportLog, [
+            'data_class' => null,
+        ]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $userId = $this->getUser()->getId();
-            $this->reportService->newRepportLogs($request, $this->entityManager, $this->userRepository, $userId, $repportLog);
 
-            return $this->redirectToRoute('app_repport_logs_index', [], Response::HTTP_SEE_OTHER);
-        }
-
+        // Check if the request is for JSON response
         return $this->render('employee/health.html.twig', [
             'controller_name' => 'EmployeeController',
             'animals' => $animals,
-            'vetRepports' => $vetRepports,
+            'vetRepports' => $repportLog,
             'form' => $form->createView(),
+            'habitats' => $habitats,
         ]);
     }
-    
+    #[Route('/health/{id}', name: 'employee_health_id', methods: ['GET', 'POST'])]
+    public function healthcontent(int $id, AnimalRepository $animalRepository): JsonResponse
+    {
+        $animals = $animalRepository->findBy(['habitat' => $id]);
+      
+        $animalData = [];
+
+        foreach ($animals as $animal) {
+            $animalData[] = [
+                'id' => $animal->getId(),
+                'name' => $animal->getName(),
+            ];
+        }
+        // dd($animalData);
+        return new JsonResponse(['animals' => $animalData]);
+    }
 }
