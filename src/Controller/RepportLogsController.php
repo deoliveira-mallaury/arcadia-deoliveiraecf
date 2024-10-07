@@ -27,10 +27,12 @@ final class RepportLogsController extends AbstractController
         $this->entityManager = $entityManager;
     }
     #[Route('/', name: 'app_repport_logs_index', methods: ['GET'])]
-    public function index(RepportLogsRepository $repportLogsRepository): Response
+    public function index(RepportLogsRepository $repportLogsRepository, AnimalRepository $animalRepository): Response
     {
+        // dd($repportLogsRepository->findAll());
         return $this->render('repport_logs/index.html.twig', [
             'repport_logs' => $repportLogsRepository->findAll(),
+            // 'animals'=>$animals
         ]);
     }
     #[Route('/new', name: 'app_repport_logs_new', methods: ['GET', 'POST'])]
