@@ -4,11 +4,8 @@ export default function () {
     $(document).ready(function () {
         console.log('Script loaded2'); // Debugging statement
         let datas = [];
-        $('#habitat-select').on('change', function (event) {
-            const habitatId = event.target.value;
-            console.log('Selected habitat:', habitatId);
-
-            fetch('/employee/health/' + habitatId)
+        function fetchAnimalData(route, habitatId) {
+            fetch(route + habitatId)
                 .then(response => response.json())
                 .then(data => {
                     console.log('Fetched data:', data); // Debugging statement
@@ -26,6 +23,14 @@ export default function () {
                 .catch(error => {
                     console.error('Error fetching data:', error); // Debugging statement
                 });
+        }
+
+        $('#habitat-select').on('change', function (event) {
+            const habitatId = event.target.value;
+            console.log('Selected habitat:', habitatId);
+
+            fetchAnimalData('/employee/health/', habitatId);
+            fetchAnimalData('/veterinarian/health/', habitatId);
         });
 
         $('#add_repport_log').on('click', (e) => {
@@ -34,11 +39,12 @@ export default function () {
             console.log(typeof ($('#repport_logs_date').val()));
             const postData = {
                 modifiedAnimal: $('#repport_logs_modifiedAnimal').val(),
+                modifiedHabitat: $('#repport_logs_modifiedHabitat').val(),
                 date: $('#repport_logs_date').val(),
                 modifiedField: $('#repport_logs_modified_field').val(),
                 newValue: $('#repport_logs_new_value').val()
             };
- 
+
             console.log('Post data:', postData); // Debugging statement
             async function fetchData() {
 

@@ -47,6 +47,7 @@ final class RepportLogsController extends AbstractController
 
         $data = json_decode($request->getContent(), true);
         $animalId = $data["data"]['modifiedAnimal'] ?? null;
+        $habitatId = $data["data"]['modifiedHabitat'] ?? null;
         $date = new \DateTime($data["data"]['date']);
         $modifiedField = $data["data"]['modifiedField'] ?? null;
         $newValue = $data["data"]['newValue'] ?? null;
@@ -62,10 +63,18 @@ final class RepportLogsController extends AbstractController
             $animal = $animalRepository->find($animalId);
             $repportLog->setModifiedAnimal($animal);
         }
-
+        if ($habitatId) {
+            $habitat = $habitatRepository->find($habitatId);
+            $repportLog->setModifiedHabitat($habitat);
+        }
         $entityManager->persist($repportLog);
         $entityManager->flush();
-        $changedata = $animalRepository->modifySomeField($modifiedField, $newValue, $animalId);
+        if ($animalId) {
+            $animalRepository->modifySomeField($modifiedField, $newValue, $animalId);
+        }
+        if ($habitatId) {
+            $habitatRepository->modifySomeField($modifiedField, $newValue, $habitatId);
+        }
         // Handle form submission and validation
         $form = $this->createForm(RepportLogsType::class, $repportLog);
         $form->handleRequest($request);

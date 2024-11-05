@@ -15,29 +15,26 @@ class HabitatRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Habitat::class);
     }
+    /**
+     * @return Habitat[] Returns an array of Animal objects
+     */
+    public function getFieldNames(): array
+    {
+        $classMetadata = $this->getEntityManager()->getClassMetadata(Habitat::class);
+        return $classMetadata->getFieldNames();
+    }
 
-    //    /**
-    //     * @return Habitat[] Returns an array of Habitat objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('h')
-    //            ->andWhere('h.animal = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('h.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function modifySomeField($modifiedField, $newValue, $habitatId): ?Habitat
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'UPDATE App\Entity\Habitat a SET a.' . $modifiedField . ' = :val WHERE a.id = :habitatId'
+        );
+        $query->setParameter('val', $newValue);
+        $query->setParameter('habitatId', $habitatId);
 
-    //    public function findOneBySomeField($value): ?Habitat
-    //    {
-    //        return $this->createQueryBuilder('h')
-    //            ->andWhere('h.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        $query->execute();
+
+        return $entityManager->getRepository(Habitat::class)->find($habitatId);
+    }
 }

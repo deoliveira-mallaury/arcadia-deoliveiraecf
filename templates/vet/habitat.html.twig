@@ -1,0 +1,21 @@
+{% extends 'vet/dashboard.html.twig' %}
+
+{% block content %}
+	<div class="container-fluid row align-items-center">
+		<turbo-frame id="index_habitat" turbo-visit-control="reload">
+			{{ include('habitat/index.html.twig', { habitats: habitats }) }}
+		</turbo-frame>
+
+
+		<div
+			id="content-container">
+			<!-- Content will be loaded here by AJAX -->
+			{% include 'vet/_habitatContent.html.twig' %}
+		</div>
+		<turbo-frame id="new_repport_log" turbo-visit-control="reload" class="col"><!-- Le formulaire d'édition de l'animal sera chargé ici --></turbo-frame>
+		<script src="{{ asset('build/app.js') }}"></script>
+
+
+		
+	</div>
+{% endblock %}
