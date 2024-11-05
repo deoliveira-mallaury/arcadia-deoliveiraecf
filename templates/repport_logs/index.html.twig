@@ -11,9 +11,10 @@
 			<tr>
 				<th>Id</th>
 				<th>Date</th>
-				<th>Modified_field</th>
-				<th>New_value</th>
-				<th>actions</th>
+				<th>Nom animal</th>
+				<th>Champ modifié</th>
+				<th>Nouvelle valeur</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -21,6 +22,7 @@
 				<tr>
 					<td>{{ repport_log.id }}</td>
 					<td>{{ repport_log.date ? repport_log.date|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ repport_log.modifiedAnimal.name }}</td>
 					<td>{{ repport_log.modifiedField }}</td>
 					<td>{{ repport_log.newValue }}</td>
 					<td>

@@ -1,0 +1,16 @@
+<form id="new_repport_log" action="{{ path('app_repport_logs_new') }}" data-turbo-frame="new_repport_log" method="post" class="row col-5 ">
+
+	<legend class="d-flex justify-content-between align-items-center">Ajout rapport
+		<button data-bs-toggle="collapse" href="#new_repport_log">
+			<i class="bi bi-x-circle"></i>
+		</button>
+	</legend>
+	<turbo-frame id="new_repport_log" turbo-visit-control="reload" class="col"><!-- Le formulaire d'édition de l'animal sera chargé ici --></turbo-frame>
+	{{ form_start(form, {'attr': {'id': 'repportLogForm'}}) }}
+	{{ form_row(form.modifiedHabitat, {'attr': {'id': 'repportLogs_modifiedHabitat'}}) }}
+	{{ form_row(form.date) }}
+	{{ form_row(form.modified_field) }}
+	{{ form_row(form.new_value) }}
+	<button id="add_repport_log" class="btn">Enregistrer</button>
+	{{ form_end(form) }}
+</form>

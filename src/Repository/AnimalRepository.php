@@ -25,13 +25,17 @@ class AnimalRepository extends ServiceEntityRepository
         return $classMetadata->getFieldNames();
     }
 
-    //    public function findOneBySomeField($value): ?Animal
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function modifySomeField($modifiedField, $newValue, $animalId): ?Animal
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'UPDATE App\Entity\Animal a SET a.' . $modifiedField . ' = :val WHERE a.id = :animalId'
+        );
+        $query->setParameter('val', $newValue);
+        $query->setParameter('animalId', $animalId);
+
+        $query->execute();
+
+        return $entityManager->getRepository(Animal::class)->find($animalId);
+    }
 }

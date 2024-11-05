@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}Dashboard
+{% endblock %}
+{% block body %}
+	<div class="vet container-fluid row">
+		<ul class="vet-dashboard mt-5 nav position-relative flex-column col-2 h-25">
+			<li class="nav-item border ">
+				<a class="nav-link nav-vet" href="{{ path('vet_habitat') }}" data-target="{{ path('vet_habitat') }}">
+					Gestion habitats
+				</a>
+			</li>
+			<li class="nav-item border border-black">
+				<a class="nav-link nav-vet" href="{{ path('veterinarian_health') }}">Gestion état santé animaux</a>
+			</li>
+		</ul>
+		<div class="col-10" id="content-area">
+			{% block content %}{% endblock %}
+		</div>
+	</div>
+{% endblock %}
