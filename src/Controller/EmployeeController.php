@@ -2,13 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\RepportLogs;
+use App\Form\RepportLogsType;
+use App\Service\ReportService;
+use App\Repository\UserRepository;
 use App\Repository\AnimalRepository;
+use App\Repository\HabitatRepository;
 use App\Repository\OpinionRepository;
 use App\Repository\ServiceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RepportLogsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -18,6 +25,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_EMPLOYEE')]
 class EmployeeController extends AbstractController
 {
+    private $reportService;
+    private $entityManager;
+    private $userRepository;
+
+    public function __construct(ReportService $reportService, EntityManagerInterface $entityManager, UserRepository $userRepository)
+    {
+        $this->reportService = $reportService;
+        $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
+    }
+
     #[Route('/employee', name: 'app_employee_dashboard')]
     public function index(): Response
     {
@@ -51,28 +69,41 @@ class EmployeeController extends AbstractController
             'opinions' => $opinions,
         ]);
     }
-    #[Route('/employee/health', name: 'employee_health')]
-    public function health(AnimalRepository $animalRepository, RepportLogsRepository $repportLogsRepository): Response
+    #[Route('/health', name: 'employee_health', methods: ['GET', 'POST'])]
+    public function health(Request $request, AnimalRepository $animalRepository, HabitatRepository $habitatRepository, RepportLogsRepository $repportLogsRepository): Response
     {
         $animals = $animalRepository->findAll();
-        $vetRepports = $repportLogsRepository->findAll();
+        $repportLog = $repportLogsRepository->findAll();
+        $habitats = $habitatRepository->findAll();
+
+        $form = $this->createForm(RepportLogsType::class, $repportLog, [
+            'data_class' => null,
+        ]);
+
+
+        // Check if the request is for JSON response
         return $this->render('employee/health.html.twig', [
             'controller_name' => 'EmployeeController',
             'animals' => $animals,
-            'vetRepports' => $vetRepports,
+            'vetRepports' => $repportLog,
+            'form' => $form->createView(),
+            'habitats' => $habitats,
         ]);
     }
-    #[Route('/employee/health/new/{animalId}', name: 'employee_health_new')]
-    public function newHealthReport(int $animalId, AnimalRepository $animalRepository, RepportLogsRepository $repportLogsRepository): Response
+    #[Route('/health/{id}', name: 'employee_health_id', methods: ['GET', 'POST'])]
+    public function healthcontent(int $id, AnimalRepository $animalRepository): JsonResponse
     {
-        $animal = $animalRepository->find($animalId);
+        $animals = $animalRepository->findBy(['habitat' => $id]);
+      
+        $animalData = [];
 
-        if (!$animal) {
-            throw $this->createNotFoundException('Animal not found');
+        foreach ($animals as $animal) {
+            $animalData[] = [
+                'id' => $animal->getId(),
+                'name' => $animal->getName(),
+            ];
         }
-
-        $repportLog = $repportLogsRepository->createLogForAnimal($animal);
-
-        return $this->redirectToRoute('app_repport_logs_index', [], Response::HTTP_SEE_OTHER);
+        // dd($animalData);
+        return new JsonResponse(['animals' => $animalData]);
     }
 }

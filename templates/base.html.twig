@@ -24,20 +24,19 @@
 		{% endblock %}
 	</head>
 	<body>
-		<nav class="navbar fixed-top navbar-expand-md p-md-0 col-lg-6 mx-lg-auto ">
+		<nav class="base-nav navbar fixed-top mb-2 navbar-expand-md p-md-0 col-lg-6 mx-lg-auto ">
 			<div class="container-fluid ">
 				<a class="navbar-brand d-md-none mx-auto" href="{{ path('app_homepage') }}">Arcadia zoo</a>
 				<button class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
 				<div class="collapse navbar-collapse row" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 nav-fill">
 						<li class="nav-item text-center">
 							<a class="nav-link {{ app.request.get('_route') == 'app_services' ? 'active' : '' }}" href="{{ path('app_services') }}">Services</a>
 						</li>
 						<li class="nav-item text-center">
-							<a class="nav-link {{ app.request.get('_route') == 'app_habitats' ? 'active' : '' }}" href="{{ path('app_habitats') }}">Habitats</a>
+							<a class="nav-link {{ app.request.get('_route') == 'app_habitat' ? 'active' : '' }}" href="{{ path('app_habitat') }}">Habitats</a>
 						</li>
 						<li class="nav-item text-center">
 							<a class="nav-link {{ app.request.get('_route') == 'app_homepage' ? 'active' : '' }}" href="{{ path('app_homepage') }}">Accueil</a>
@@ -47,13 +46,13 @@
 						</li>
 						{% if app.user %}
 							<li class="nav-item dropdown text-center">
-								<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+								<a class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
 									Espace utilisateur
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									{% if app.user.role.getId()== 1%}
 										<li>
-											<a class="dropdown-item nav-link 	 {{ app.request.get('_route') == 'administrator' ? 'active' : '' }}" href="{{ path('administrator') }}">Dashboard</a>
+											<a class="dropdown-item nav-link {{ app.request.get('_route') == 'administrator' ? 'active' : '' }}" href="{{ path('administrator') }}">Dashboard</a>
 										</li>
 									{% endif %}
 

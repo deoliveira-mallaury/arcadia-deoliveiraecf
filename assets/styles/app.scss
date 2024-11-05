@@ -5,13 +5,21 @@
   } */
 
 /* Utilisez des classes spécifiques pour éviter les conflits */
+
+
 body {
     background-color: #FCF2E1 !important;
     font-family: "Indie Flower", cursive;
     color: #356d6e;
     max-height: 100vh;
-
+    padding-top: 10vh;
 }
+a {
+    color:  #356d6e !important;
+    /* Utilise la couleur héritée du parent */
+    text-decoration: none;
+}
+
 
 .navbar {
     border-radius: 0 0 20px 20px;
@@ -21,17 +29,12 @@ body {
 .navbar .nav-link,
 .navbar .navbar-brand,
 .navbar .dropdown-toggle,
-.navbar .navbar-toggler .nav-item {
+.navbar .navbar-toggler,
+.nav-item {
     color: #356d6e !important;
     font-family: "Indie Flower", cursive;
     font-weight: bold;
     font-style: normal;
-}
-
-.nav-admin {
-    color: inherit;
-    /* Utilise la couleur héritée du parent */
-    text-decoration: none;
 }
 
 .navbar .active {
@@ -45,16 +48,18 @@ body {
 
 }
 
-.administrator-dashboard {
+.administrator-dashboard,
+.employee-dashboard,
+.vet-dashboard  {
     color: #356d6e;
     font-family: "Indie Flower", cursive;
-
     background-color: #FBB996;
-
 }
-.employee{
+
+.employee {
     margin-top: 10vh;
 }
+
 #content-area {
     background-color: #FCF2E1;
 
@@ -79,9 +84,11 @@ body {
 .habitat {
     margin-top: 10vh;
 }
-.vet-index-repports{
+
+.vet-index-repports {
     margin-top: 10vh;
 }
+
 // Animal component
 // .card-animal-container {
 //     display: none;

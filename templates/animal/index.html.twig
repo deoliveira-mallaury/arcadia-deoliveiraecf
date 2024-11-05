@@ -53,8 +53,7 @@
 							{% if is_granted('ROLE_ADMIN') %}
 								<a href="{{ path('app_animal_show', {'id': animal.id}) }}" data-turbo-frame="show_animal">show</a>
 								<a href="{{ path('app_animal_edit', {'id': animal.id}) }}" data-turbo-frame="edit_animal">edit</a>
-							{% endif %}
-							<a href="{{ path('employee_health_new', {'animalId': animal.id}) }}" data-turbo-frame="new_repport_log">Changer information</a>
+						{% endif %}
 						</td>
 					</tr>
 				{% else %}
@@ -65,5 +64,6 @@
 			</tbody>
 		</table>
 	</turbo-frame>
+
 	<turbo-frame id="new_repport_log" turbo-visit-control="reload" class="col"><!-- Le formulaire d'édition de l'animal sera chargé ici --></turbo-frame>
 {% endblock %}

@@ -1,11 +1,13 @@
 import './bootstrap.js';
 import './styles/app.scss';
+
 /*
  * Welcome to your app's main JavaScript file!
  *
  * This file will be included onto the page via the importmap() Twig function,
  * which should already be in your base.html.twig.
  */
+
 // loads the jquery package from node_modules
 import $ from 'jquery';
 import * as Turbo from '@hotwired/turbo';
@@ -19,14 +21,15 @@ Turbo.start();
 import loginformValidator from './controllers/loginformValidator.js';
 import administratorDashboard from './controllers/administratorDashboard.js';
 import animalHandler from './controllers/animalHandler.js';
-
-
-ReactDOM.render(<Rating />, document.getElementById('rating-value'));
+import repportLogs from './controllers/repportLogs.js';
 
 
 $(document).ready(function () {
     loginformValidator();
     administratorDashboard();
     animalHandler();
+    repportLogs();
     // $('body').prepend('<h1>' +  + '</h1>');
 });
+
+ReactDOM.render(<Rating />, document.getElementById('rating-value'));
