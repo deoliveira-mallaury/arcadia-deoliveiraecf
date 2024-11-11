@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Habitat;
-use App\Form\Habitat2Type;
+use App\Form\HabitatRepportType;
 use App\Repository\HabitatRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/habitat')]
 final class HabitatController extends AbstractController
@@ -29,7 +29,7 @@ final class HabitatController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $habitat = new Habitat();
-        $form = $this->createForm(Habitat2Type::class, $habitat);
+        $form = $this->createForm(HabitatRepportType::class, $habitat);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -56,7 +56,7 @@ final class HabitatController extends AbstractController
     #[Route('/{id}/edit', name: 'app_habitat_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Habitat $habitat, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Habitat2Type::class, $habitat);
+        $form = $this->createForm(HabitatRepportType::class, $habitat);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

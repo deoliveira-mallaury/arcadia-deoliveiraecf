@@ -38,8 +38,7 @@ final class RepportLogsController extends AbstractController
     #[Route('/new', name: 'app_repport_logs_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AnimalRepository $animalRepository, HabitatRepository $habitatRepository, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
-
-        // return $response;
+       // return $response;
         $repportLog = new RepportLogs();
         $userId = $this->getUser()->getId();
         $user = $userRepository->find($userId);
